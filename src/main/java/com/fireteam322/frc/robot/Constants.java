@@ -40,7 +40,17 @@ public final class Constants {
 		INTAKE_SPEED = 1.0,
 		INTAKE_REVERSE_SPEED = -(0.75),
 		SHOOTER_SPEED = 1.0,
-		SHOOTER_REVERSE_SPEED = -(0.5);
+		SHOOTER_REVERSE_SPEED = -(0.5),
+		CLIMBER_SPEED = 1.0,
+		CLIMBER_REVERSE_SPEED = -(1.0);
+
+	// FrontClimber.java
+	public static final int FRONT_CLIMBER_MOTOR = 9;
+
+
+	// RearClimber.java
+	public static final int REAR_LEFT_CLIMBER_MOTOR = 10,
+							REAR_RIGHT_CLIMBER_MOTOR = 11;
 
 	// Robot Power
 	public static final int PDP_CHANNEL = 0;

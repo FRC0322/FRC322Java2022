@@ -8,21 +8,9 @@ import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 
-import com.fireteam322.frc.robot.commands.AutomaticLED;
-import com.fireteam322.frc.robot.commands.BasicAutonomous;
-import com.fireteam322.frc.robot.commands.DashboardUpdater;
-import com.fireteam322.frc.robot.commands.DoNothing;
-import com.fireteam322.frc.robot.commands.DriveWithJoystick;
-import com.fireteam322.frc.robot.commands.ForwardAutonomous;
-import com.fireteam322.frc.robot.commands.RunRearCamera;
-import com.fireteam322.frc.robot.commands.SimpleAutonomous;
-import com.fireteam322.frc.robot.subsystems.AddressableLEDs;
-import com.fireteam322.frc.robot.subsystems.Chassis;
-import com.fireteam322.frc.robot.subsystems.Dashboard;
-import com.fireteam322.frc.robot.subsystems.LED;
-import com.fireteam322.frc.robot.subsystems.RearCamera;
-import com.fireteam322.frc.robot.subsystems.RobotPower;
-import com.fireteam322.frc.robot.utilities.F310Controller;
+import com.fireteam322.frc.robot.commands.*;
+import com.fireteam322.frc.robot.subsystems.*;
+import com.fireteam322.frc.robot.utilities.*;
 
 
 /**
@@ -40,13 +28,21 @@ private final AddressableLEDs m_AddressableLEDs = new AddressableLEDs();
 private final Chassis m_chassis = new Chassis();
 private final Dashboard m_dashboard = new Dashboard();
 private final LED m_led = new LED();
-private final RearCamera m_rearCamera = new RearCamera();
+private final RobotCamera m_frontCamera = new RobotCamera("Front Camera", 0);
+private final RobotCamera m_rearCamera = new RobotCamera("Rear Camera", 1);
 private final RobotPower m_robotPower = new RobotPower();
+private final RearClimber m_rearClimber = new RearClimber();
+private final FrontClimber m_frontClimber = new FrontClimber();
 
 private final F310Controller m_driveStick = new F310Controller(Constants.DRIVE_STICK);
 private final F310Controller m_manipulatorStick = new F310Controller(Constants.MANIPULATOR_STICK);
 
 private final JoystickButton m_brakeButton = new JoystickButton(m_driveStick, F310Controller.Button.kA.getValue());
+private final JoystickButton m_rearClimbButton = new JoystickButton(m_driveStick, F310Controller.Button.kX.getValue());
+private final JoystickButton m_frontClimbButton = new JoystickButton(m_driveStick, F310Controller.Button.kA.getValue());
+private final JoystickButton m_rearClimbReverseButton = new JoystickButton(m_driveStick, F310Controller.Button.kY.getValue());
+private final JoystickButton m_frontClimbReverseButton = new JoystickButton(m_driveStick, F310Controller.Button.kB.getValue());
+
 
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
@@ -59,6 +55,7 @@ private final JoystickButton m_brakeButton = new JoystickButton(m_driveStick, F3
 
 		m_led.setDefaultCommand(new AutomaticLED(m_led, m_AddressableLEDs));
 
+		m_frontCamera.setDefaultCommand(new RunFrontCamera(m_frontCamera));
 		m_rearCamera.setDefaultCommand(new RunRearCamera(m_rearCamera));
 
 		// Setup the SendableChooser
@@ -74,7 +71,14 @@ private final JoystickButton m_brakeButton = new JoystickButton(m_driveStick, F3
    * edu.wpi.first.wpilibj.Joystick} or {@link XboxController}), and then passing it to a {@link
    * edu.wpi.first.wpilibj2.command.button.JoystickButton}.
    */
-  private void configureButtonBindings() {}
+  private void configureButtonBindings() {
+		m_rearClimbButton.whileActiveOnce(new RunRearClimber(m_rearClimber, Constants.CLIMBER_SPEED));
+		m_rearClimbReverseButton.whileActiveOnce(new RunRearClimber(m_rearClimber, Constants.CLIMBER_REVERSE_SPEED));
+		
+		m_frontClimbButton.whileActiveOnce(new RunFrontClimber(m_frontClimber, Constants.CLIMBER_SPEED));
+		m_frontClimbReverseButton.whileActiveOnce(new RunFrontClimber(m_frontClimber, Constants.CLIMBER_REVERSE_SPEED));
+	
+  }
 
 	public Dashboard getDashboard() {
 		return m_dashboard;
