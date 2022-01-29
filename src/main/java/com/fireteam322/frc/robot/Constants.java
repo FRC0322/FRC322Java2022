@@ -30,6 +30,16 @@ public final class Constants {
 		DRIVE_RIGHTREAR = 4,
 		TICKS_PER_INCH = 512;
 
+		// Feeder.java
+		public static final int FEEDER_MOTOR = 5;
+	
+		// Intake.jave
+		public static final int INTAKE_MOTOR = 8;
+	
+		// Shooter.java
+		public static final int LEFT_SHOOTER_MOTOR = 6;
+		public static final int RIGHT_SHOOTER_MOTOR = 7;
+	
 	// RobotContainer.java
 	public static final int DRIVE_STICK = 0,
 		MANIPULATOR_STICK = 1,

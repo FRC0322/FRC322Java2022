@@ -33,6 +33,9 @@ private final RobotCamera m_rearCamera = new RobotCamera("Rear Camera", 1);
 private final RobotPower m_robotPower = new RobotPower();
 private final RearClimber m_rearClimber = new RearClimber();
 private final FrontClimber m_frontClimber = new FrontClimber();
+private final Feeder m_feeder = new Feeder();
+private final Intake m_intake = new Intake();
+private final Shooter m_shooter = new Shooter();
 
 private final F310Controller m_driveStick = new F310Controller(Constants.DRIVE_STICK);
 private final F310Controller m_manipulatorStick = new F310Controller(Constants.MANIPULATOR_STICK);
@@ -42,7 +45,12 @@ private final JoystickButton m_rearClimbButton = new JoystickButton(m_driveStick
 private final JoystickButton m_frontClimbButton = new JoystickButton(m_driveStick, F310Controller.Button.kA.getValue());
 private final JoystickButton m_rearClimbReverseButton = new JoystickButton(m_driveStick, F310Controller.Button.kY.getValue());
 private final JoystickButton m_frontClimbReverseButton = new JoystickButton(m_driveStick, F310Controller.Button.kB.getValue());
-
+private final JoystickButton m_feederButton = new JoystickButton(m_manipulatorStick, F310Controller.Button.kA.getValue());
+private final JoystickButton m_feederReverseButton = new JoystickButton(m_manipulatorStick, F310Controller.Button.kB.getValue());
+private final JoystickButton m_shooterButton = new JoystickButton(m_manipulatorStick, F310Controller.Button.kX.getValue());
+private final JoystickButton m_shooterReverseButton = new JoystickButton(m_manipulatorStick, F310Controller.Button.kY.getValue());
+private final JoystickButton m_intakeReverseButton = new JoystickButton(m_manipulatorStick, F310Controller.Button.kBumperLeft.getValue());
+private final JoystickButton m_intakeButton = new JoystickButton(m_manipulatorStick, F310Controller.Button.kBumperRight.getValue());
 
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
@@ -52,6 +60,13 @@ private final JoystickButton m_frontClimbReverseButton = new JoystickButton(m_dr
 						    ()->(m_driveStick.getLeftX()), m_chassis, m_brakeButton));
 
 		m_dashboard.setDefaultCommand(new DashboardUpdater(m_dashboard));
+		
+		m_feeder.setDefaultCommand(new RunFeeder(m_feeder, ()->- m_manipulatorStick.getLeftY()));
+
+		m_intake.setDefaultCommand(new RunIntake(m_intake, ()->- m_manipulatorStick.getRightY()));
+
+		m_shooter.setDefaultCommand(new RunShooter(m_shooter, ()->(m_manipulatorStick.getRightTriggerAxis()
+													- m_manipulatorStick.getLeftTriggerAxis())));
 
 		m_led.setDefaultCommand(new AutomaticLED(m_led, m_AddressableLEDs));
 
@@ -72,11 +87,20 @@ private final JoystickButton m_frontClimbReverseButton = new JoystickButton(m_dr
    * edu.wpi.first.wpilibj2.command.button.JoystickButton}.
    */
   private void configureButtonBindings() {
-		m_rearClimbButton.whileActiveOnce(new RunRearClimber(m_rearClimber, Constants.CLIMBER_SPEED));
-		m_rearClimbReverseButton.whileActiveOnce(new RunRearClimber(m_rearClimber, Constants.CLIMBER_REVERSE_SPEED));
-		
-		m_frontClimbButton.whileActiveOnce(new RunFrontClimber(m_frontClimber, Constants.CLIMBER_SPEED));
-		m_frontClimbReverseButton.whileActiveOnce(new RunFrontClimber(m_frontClimber, Constants.CLIMBER_REVERSE_SPEED));
+	m_feederButton.whileActiveOnce(new RunFeeder(m_feeder, ()->Constants.FEEDER_SPEED), true);
+	m_feederReverseButton.whileActiveOnce(new RunFeeder(m_feeder, ()->Constants.FEEDER_REVERSE_SPEED), true);
+
+	m_shooterButton.whileActiveOnce(new RunShooter(m_shooter, ()->Constants.SHOOTER_SPEED), true);
+	m_shooterReverseButton.whileActiveOnce(new RunShooter(m_shooter, ()->Constants.SHOOTER_REVERSE_SPEED), true);
+
+	m_intakeButton.whileActiveOnce(new RunIntake(m_intake, ()->Constants.INTAKE_SPEED));
+	m_intakeReverseButton.whileActiveOnce(new RunIntake(m_intake, ()->Constants.INTAKE_REVERSE_SPEED));
+
+	m_rearClimbButton.whileActiveOnce(new RunRearClimber(m_rearClimber, Constants.CLIMBER_SPEED));
+	m_rearClimbReverseButton.whileActiveOnce(new RunRearClimber(m_rearClimber, Constants.CLIMBER_REVERSE_SPEED));
+	
+	m_frontClimbButton.whileActiveOnce(new RunFrontClimber(m_frontClimber, Constants.CLIMBER_SPEED));
+	m_frontClimbReverseButton.whileActiveOnce(new RunFrontClimber(m_frontClimber, Constants.CLIMBER_REVERSE_SPEED));
 	
   }
 
