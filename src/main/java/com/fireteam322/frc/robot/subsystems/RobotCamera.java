@@ -10,18 +10,18 @@ package com.fireteam322.frc.robot.subsystems;
 import edu.wpi.first.cscore.UsbCamera;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
-public class RearCamera extends SubsystemBase {
-	private static UsbCamera rearCameraServer;
+public class RobotCamera extends SubsystemBase {
+	private static UsbCamera cameraServer;
 	/**
-	 * Creates a new RearCamera.
+	 * Creates a new FrontCamera.
 	 */
-	public RearCamera() {
+	public RobotCamera(String name, int port) {
 		//Setup Camera
-		rearCameraServer = new UsbCamera("Rear Camera", 0);
+		cameraServer = new UsbCamera(name, port);
 	}
 
 	public void setResolution(int width, int height) {
-		rearCameraServer.setResolution(width, height);
+		cameraServer.setResolution(width, height);
 	}
 
 
@@ -30,11 +30,11 @@ public class RearCamera extends SubsystemBase {
 	 * @return Returns a UsbCamera feed.
 	 */
 	public UsbCamera getCameraFeed() {
-		return rearCameraServer;
+		return cameraServer;
 	}
 
 	public void setFPS(int fps) {
-		rearCameraServer.setFPS(fps);
+		cameraServer.setFPS(fps);
 	}
 
 	@Override
