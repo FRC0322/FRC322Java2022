@@ -7,7 +7,6 @@
 
 package com.fireteam322.frc.robot.commands;
 
-
 import java.util.function.DoubleSupplier;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
@@ -31,7 +30,7 @@ public class DriveWithJoystick extends CommandBase {
 	 * @param drivetrain The drivetrain subsystem to drive
 	 */
 	public DriveWithJoystick(DoubleSupplier left, DoubleSupplier right, Chassis chassis,
-				 JoystickButton brake) {
+			JoystickButton brake) {
 		m_chassis = chassis;
 		m_left = left;
 		m_right = right;
@@ -41,8 +40,9 @@ public class DriveWithJoystick extends CommandBase {
 
 	@Override
 	public void initialize() {
-		//m_chassis.setupEncoders();
+		// m_chassis.setupEncoders();
 	}
+
 	// Called repeatedly when this Command is scheduled to run
 	@Override
 	public void execute() {
@@ -56,7 +56,7 @@ public class DriveWithJoystick extends CommandBase {
 	// Make this return true when this Command no longer needs to run execute()
 	@Override
 	public boolean isFinished() {
-		return false;	// Runs until interrupted
+		return false; // Runs until interrupted
 	}
 
 	// Called once after isFinished returns true
