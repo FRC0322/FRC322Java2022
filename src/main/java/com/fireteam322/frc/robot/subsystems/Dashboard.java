@@ -17,20 +17,18 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 public class Dashboard extends SubsystemBase {
 	private ShuffleboardTab driverShuffleboardTab;
 	private ShuffleboardTab autonomousShuffleboardTab;
-	private ShuffleboardTab debuggerShuffleboardTab;
+
 	/**
 	 * Creates a new Dashboard.
 	 */
 	public Dashboard() {
 		driverShuffleboardTab = Shuffleboard.getTab("Driver");
 		autonomousShuffleboardTab = Shuffleboard.getTab("Autonomous");
-		debuggerShuffleboardTab = Shuffleboard.getTab("Debugger");
 	}
 
 	public enum Tab {
 		kDriver(0),
-		kAutonomous(1),
-		kDebugger(2);
+		kAutonomous(1);
 
 		private static final Map<Integer, Tab> MY_MAP = new HashMap<Integer, Tab>();
 
@@ -72,10 +70,6 @@ public class Dashboard extends SubsystemBase {
 
 	public ShuffleboardTab getAutonomousTab() {
 		return autonomousShuffleboardTab;
-	}
-
-	public ShuffleboardTab getDebuggerTab() {
-		return debuggerShuffleboardTab;
 	}
 
 	@Override

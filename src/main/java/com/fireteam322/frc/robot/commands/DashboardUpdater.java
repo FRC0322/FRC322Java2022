@@ -14,6 +14,7 @@ import com.fireteam322.frc.robot.subsystems.Dashboard;
 
 public class DashboardUpdater extends CommandBase {
 	private final Dashboard m_dashboard;
+
 	/**
 	 * Creates a new DashboardUpdater.
 	 */
@@ -33,12 +34,10 @@ public class DashboardUpdater extends CommandBase {
 	public void execute() {
 		if (DriverStation.isAutonomous()) {
 			Shuffleboard.selectTab("Autonomous");
-		}
-		else if (DriverStation.isTeleop()) {
+		} else if (DriverStation.isTeleop()) {
 			Shuffleboard.selectTab("Driver");
-		}
-		else {
-			Shuffleboard.selectTab("Debugger");
+		} else {
+			Shuffleboard.selectTab("Driver");
 		}
 	}
 
