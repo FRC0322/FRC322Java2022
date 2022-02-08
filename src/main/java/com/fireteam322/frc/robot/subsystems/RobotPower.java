@@ -7,6 +7,8 @@
 
 package com.fireteam322.frc.robot.subsystems;
 
+import edu.wpi.first.hal.PowerDistributionFaults;
+import edu.wpi.first.hal.PowerDistributionStickyFaults;
 import edu.wpi.first.wpilibj.PowerDistribution;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import com.fireteam322.frc.robot.Constants;
@@ -15,11 +17,13 @@ public class RobotPower extends SubsystemBase {
 	/**
 	 * Creates a new RobotPower.
 	 */
-	private final PowerDistribution m_pdp = new PowerDistribution(Constants.PDP_CHANNEL, PowerDistribution.ModuleType.kCTRE);
+	private final PowerDistribution m_pdp = new PowerDistribution(Constants.PDP_CHANNEL,
+			PowerDistribution.ModuleType.kCTRE);
+
 	public RobotPower() {
 		super();
-
 		m_pdp.resetTotalEnergy();
+		m_pdp.clearStickyFaults();
 	}
 
 	public double getCurrent(int channel) {
@@ -36,6 +40,22 @@ public class RobotPower extends SubsystemBase {
 
 	public double getTemperature() {
 		return m_pdp.getTemperature();
+	}
+
+	public double getTotalPower() {
+		return m_pdp.getTotalPower();
+	}
+
+	public double getTotalEnergy() {
+		return m_pdp.getTotalEnergy();
+	}
+
+	public PowerDistributionFaults getFaults() {
+		return m_pdp.getFaults();
+	}
+
+	public PowerDistributionStickyFaults getStickyFaults() {
+		return m_pdp.getStickyFaults();
 	}
 
 	@Override
