@@ -10,18 +10,20 @@ import com.fireteam322.frc.robot.subsystems.FrontClimber;
 
 public class RunFrontClimber extends CommandBase {
   private final FrontClimber m_climber;
-	private final double m_speed;
+  private final double m_speed;
+
   /** Creates a new RunFrontClimber. */
   public RunFrontClimber(FrontClimber climber, double speed) {
     m_climber = climber;
-		m_speed = speed;
+    m_speed = speed;
     // Use addRequirements() here to declare subsystem dependencies.
     addRequirements(m_climber);
   }
 
   // Called when the command is initially scheduled.
   @Override
-  public void initialize() {}
+  public void initialize() {
+  }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override

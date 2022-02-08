@@ -12,6 +12,7 @@ import com.fireteam322.frc.robot.subsystems.RobotCamera;
 
 public class RunRearCamera extends CommandBase {
 	private final RobotCamera m_rearCamera;
+
 	/**
 	 * Creates a new RunRearCamera.
 	 */

@@ -15,6 +15,7 @@ import com.fireteam322.frc.robot.subsystems.Shooter;
 public class RunShooter extends CommandBase {
 	private final Shooter m_shooter;
 	private final DoubleSupplier m_speed;
+
 	/**
 	 * Creates a new RunShooter.
 	 */

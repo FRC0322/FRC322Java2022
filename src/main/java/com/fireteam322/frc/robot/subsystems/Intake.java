@@ -16,6 +16,7 @@ import com.fireteam322.frc.robot.Constants;
 public class Intake extends SubsystemBase {
 	// The Intake is our ground level ball intake.
 	private final WPI_TalonSRX m_intakeMotor = new WPI_TalonSRX(Constants.INTAKE_MOTOR);
+
 	/**
 	 * Creates a new Intake.
 	 */

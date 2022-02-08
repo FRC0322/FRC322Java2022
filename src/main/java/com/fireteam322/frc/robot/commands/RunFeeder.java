@@ -15,6 +15,7 @@ import com.fireteam322.frc.robot.subsystems.Feeder;
 public class RunFeeder extends CommandBase {
 	private final Feeder m_feeder;
 	private final DoubleSupplier m_speed;
+
 	/**
 	 * Creates a new RunFeeder.
 	 */

@@ -12,11 +12,12 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 public class RobotCamera extends SubsystemBase {
 	private static UsbCamera cameraServer;
+
 	/**
 	 * Creates a new FrontCamera.
 	 */
 	public RobotCamera(String name, int port) {
-		//Setup Camera
+		// Setup Camera
 		cameraServer = new UsbCamera(name, port);
 	}
 
@@ -24,9 +25,9 @@ public class RobotCamera extends SubsystemBase {
 		cameraServer.setResolution(width, height);
 	}
 
-
 	/**
 	 * This method returns the Limelight HttpCamera feed.
+	 *
 	 * @return Returns a UsbCamera feed.
 	 */
 	public UsbCamera getCameraFeed() {

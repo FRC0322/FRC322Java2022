@@ -15,6 +15,7 @@ import com.fireteam322.frc.robot.subsystems.Intake;
 public class RunIntake extends CommandBase {
 	private final Intake m_intake;
 	private final DoubleSupplier m_speed;
+
 	/**
 	 * Creates a new RunIntake.
 	 */

@@ -15,6 +15,7 @@ public class BasicAutonomous extends CommandBase {
 	private final Chassis m_chassis;
 
 	private double heading, distance, startingDistance, errorFactor;
+
 	/**
 	 * Creates a new BasicAutonomous.
 	 */
@@ -48,8 +49,8 @@ public class BasicAutonomous extends CommandBase {
 	// Returns true when the command should end.
 	@Override
 	public boolean isFinished() {
-		if((startingDistance + distance + errorFactor) > Math.min(Math.abs(m_chassis.leftDistanceIn()),
-									  Math.abs(m_chassis.rightDistanceIn())))
+		if ((startingDistance + distance + errorFactor) > Math.min(Math.abs(m_chassis.leftDistanceIn()),
+				Math.abs(m_chassis.rightDistanceIn())))
 			return false;
 		else
 			return true;

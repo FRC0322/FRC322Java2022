@@ -16,6 +16,7 @@ public class ForwardAutonomous extends CommandBase {
 	private final Chassis m_chassis;
 
 	private double startTime;
+
 	/**
 	 * Creates a new SimpleAutonomous.
 	 */
@@ -46,10 +47,9 @@ public class ForwardAutonomous extends CommandBase {
 	// Returns true when the command should end.
 	@Override
 	public boolean isFinished() {
-		if(Timer.getFPGATimestamp() < (startTime + Constants.DEFAULT_AUTONOMOUS_TIME)) {
+		if (Timer.getFPGATimestamp() < (startTime + Constants.DEFAULT_AUTONOMOUS_TIME)) {
 			return false;
-		}
-		else {
+		} else {
 			return true;
 		}
 	}

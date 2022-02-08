@@ -16,6 +16,7 @@ import com.fireteam322.frc.robot.Constants;
 public class Feeder extends SubsystemBase {
 	// The Feeder moves balls from the intake to the shooter.
 	private final WPI_TalonSRX m_feederMotor = new WPI_TalonSRX(Constants.FEEDER_MOTOR);
+
 	/**
 	 * Creates a new Feeder.
 	 */
@@ -25,7 +26,8 @@ public class Feeder extends SubsystemBase {
 		// Set the inversion of the feeder motor.
 		m_feederMotor.setInverted(true);
 
-		// Set the feeder motor to Brake mode to keep balls from moving when we don't want them to.
+		// Set the feeder motor to Brake mode to keep balls from moving when we don't
+		// want them to.
 		m_feederMotor.setNeutralMode(NeutralMode.Brake);
 	}
 

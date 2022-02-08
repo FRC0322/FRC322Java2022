@@ -16,6 +16,7 @@ import com.fireteam322.frc.robot.subsystems.LED;
 public class AutomaticLED extends CommandBase {
 	private final LED m_led;
 	private final AddressableLEDs m_addressableLEDs;
+
 	/**
 	 * Creates a new AutomaticLED.
 	 */
@@ -31,7 +32,7 @@ public class AutomaticLED extends CommandBase {
 	@Override
 	public void initialize() {
 		m_led.setRGB(Color.kWhite, Constants.DEFAULT_BLINK_RATE);
-		for(var i = 0; i < m_addressableLEDs.getLength(); i++)
+		for (var i = 0; i < m_addressableLEDs.getLength(); i++)
 			m_addressableLEDs.setLED(i, Color.kWhite);
 	}
 
@@ -46,7 +47,7 @@ public class AutomaticLED extends CommandBase {
 	@Override
 	public void end(boolean interrupted) {
 		m_led.setRGB(Color.kWhite, Constants.DEFAULT_BLINK_RATE);
-		for(var i = 0; i < m_addressableLEDs.getLength(); i++)
+		for (var i = 0; i < m_addressableLEDs.getLength(); i++)
 			m_addressableLEDs.setLED(i, Color.kWhite);
 	}
 

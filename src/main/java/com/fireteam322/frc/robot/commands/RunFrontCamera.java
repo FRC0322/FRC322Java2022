@@ -12,6 +12,7 @@ import com.fireteam322.frc.robot.subsystems.RobotCamera;
 
 public class RunFrontCamera extends CommandBase {
 	private final RobotCamera m_frontCamera;
+
 	/**
 	 * Creates a new RunFrontCamera.
 	 */
