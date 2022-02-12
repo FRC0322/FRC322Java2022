@@ -7,6 +7,7 @@
 
 package com.fireteam322.frc.robot.subsystems;
 
+import edu.wpi.first.cameraserver.CameraServer;
 import edu.wpi.first.cscore.UsbCamera;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
@@ -18,7 +19,7 @@ public class RobotCamera extends SubsystemBase {
 	 */
 	public RobotCamera(String name, int port) {
 		// Setup Camera
-		cameraServer = new UsbCamera(name, port);
+		cameraServer = CameraServer.startAutomaticCapture(name, port);
 	}
 
 	public void setResolution(int width, int height) {

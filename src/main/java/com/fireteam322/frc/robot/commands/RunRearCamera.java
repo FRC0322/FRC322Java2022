@@ -8,6 +8,8 @@
 package com.fireteam322.frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
+
+import com.fireteam322.frc.robot.Constants;
 import com.fireteam322.frc.robot.subsystems.RobotCamera;
 
 public class RunRearCamera extends CommandBase {
@@ -25,8 +27,8 @@ public class RunRearCamera extends CommandBase {
 	// Called when the command is initially scheduled.
 	@Override
 	public void initialize() {
-		m_rearCamera.setResolution(320, 180);
-		m_rearCamera.setFPS(15);
+		m_rearCamera.setResolution(Constants.VIDEO_WIDTH, Constants.VIDEO_HEIGHT);
+		m_rearCamera.setFPS(Constants.VIDEO_FPS);
 	}
 
 	// Called every time the scheduler runs while the command is scheduled.

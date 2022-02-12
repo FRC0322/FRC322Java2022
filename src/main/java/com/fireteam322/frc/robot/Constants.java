@@ -21,7 +21,7 @@ public final class Constants {
 	public static final int ADDRESSABLE_LED_PORT = 0,
 			ADDRESSABLE_LED_LENGTH = 60;
 
-	// AutomaticLED.java
+	// AutomaticAddressableLED.java
 	public static final double AUTONOMOUS_BLINK_RATE = 0.25,
 			TELOP_BLINK_RATE = 0.5,
 			DISABLED_BLINK_RATE = 0.0,
@@ -48,7 +48,9 @@ public final class Constants {
 	public static final int DRIVE_STICK = 0,
 			MANIPULATOR_STICK = 1,
 			DEBUGGER_STICK = 2,
-			CAMERASERVER_FEEDS = 2;
+			CAMERASERVER_FEEDS = 2,
+			FRONT_CAMERA_CHANNEL = 0,
+			REAR_CAMERA_CHANNEL = 1;
 	public static final double FEEDER_SPEED = 0.75,
 			FEEDER_REVERSE_SPEED = -(0.5),
 			INTAKE_SPEED = 1.0,
@@ -64,6 +66,11 @@ public final class Constants {
 	// RearClimber.java
 	public static final int REAR_LEFT_CLIMBER_MOTOR = 2,
 			REAR_RIGHT_CLIMBER_MOTOR = 3;
+
+	// RunFrontCamera.java & RunRearCamera.java
+	public static final int VIDEO_WIDTH = 320,
+							VIDEO_HEIGHT = 180,
+							VIDEO_FPS = 15;
 
 	// Robot Power
 	public static final int PDP_CHANNEL = 0;
