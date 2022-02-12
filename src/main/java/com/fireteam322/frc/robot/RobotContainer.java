@@ -23,12 +23,11 @@ import com.fireteam322.frc.robot.utilities.*;
  */
 public class RobotContainer {
 	// The robot's subsystems and commands are defined here...
-	Command m_autoCommand;
-	SendableChooser<Command> autonomousChooser = new SendableChooser<>();
+	private static Command m_autoCommand;
+	private static SendableChooser<Command> autonomousChooser = new SendableChooser<>();
 
 	// private final AddressableLEDs m_AddressableLEDs = new AddressableLEDs();
-	private final Chassis m_chassis = new Chassis();
-	private final Dashboard m_dashboard = new Dashboard();
+	public final Chassis m_chassis = new Chassis();
 	// private final LED m_led = new LED();
 	private final RobotCamera m_frontCamera = new RobotCamera("Front Camera", 0);
 	private final RobotCamera m_rearCamera = new RobotCamera("Rear Camera", 1);
@@ -72,8 +71,6 @@ public class RobotContainer {
 		m_chassis.setDefaultCommand(new DriveWithJoystick(
 				() -> (m_driveStick.getRightTriggerAxis() - m_driveStick.getLeftTriggerAxis()),
 				() -> (m_driveStick.getLeftX()), m_chassis, m_brakeButton));
-
-		m_dashboard.setDefaultCommand(new DashboardUpdater(m_dashboard));
 
 		m_feeder.setDefaultCommand(new RunFeeder(m_feeder, () -> -m_manipulatorStick.getLeftY()));
 
@@ -120,10 +117,6 @@ public class RobotContainer {
 
 	}
 
-	public Dashboard getDashboard() {
-		return m_dashboard;
-	}
-
 	// Use this to setup the SendableChooser.
 	private void chooserSetup() {
 		// Add commands to Autonomous SendableChooser
@@ -131,18 +124,6 @@ public class RobotContainer {
 		autonomousChooser.addOption("Basic Autonomous", new BasicAutonomous(m_chassis));
 		autonomousChooser.addOption("Forward Autonomous", new ForwardAutonomous(m_chassis));
 		autonomousChooser.addOption("Simple Autonomous", new SimpleAutonomous(m_chassis));
-
-		// Add the Autonomous SendableChooser to the Shuffleboard
-		m_dashboard.getAutonomousTab().add("Autonomous Mode", getChooser());
-	}
-
-	/**
-	 * Use this to pass the SendableChooser to the the main {@link Robot} class.
-	 *
-	 * @return the SendableChooser<Command>
-	 */
-	public SendableChooser<Command> getChooser() {
-		return autonomousChooser;
 	}
 
 	/**
