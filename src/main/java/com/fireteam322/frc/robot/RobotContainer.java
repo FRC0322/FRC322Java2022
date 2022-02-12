@@ -83,6 +83,8 @@ public class RobotContainer {
 		m_frontCamera.setDefaultCommand(new RunFrontCamera(m_frontCamera));
 		m_rearCamera.setDefaultCommand(new RunRearCamera(m_rearCamera));
 
+		m_robotPower.setDefaultCommand(new StartRobotPower(m_robotPower));
+
 		// Setup the SendableChooser
 		chooserSetup();
 

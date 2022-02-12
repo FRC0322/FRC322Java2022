@@ -22,8 +22,6 @@ public class RobotPower extends SubsystemBase {
 
 	public RobotPower() {
 		super();
-		m_pdp.resetTotalEnergy();
-		m_pdp.clearStickyFaults();
 	}
 
 	public double getCurrent(int channel) {
@@ -48,6 +46,14 @@ public class RobotPower extends SubsystemBase {
 
 	public double getTotalEnergy() {
 		return m_pdp.getTotalEnergy();
+	}
+
+	public void resetTotalEnergy() {
+		m_pdp.resetTotalEnergy();
+	}
+
+	public void clearStickyFaults() {
+		m_pdp.clearStickyFaults();
 	}
 
 	public PowerDistributionFaults getFaults() {
