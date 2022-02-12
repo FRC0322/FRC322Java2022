@@ -18,25 +18,22 @@ import com.kauailabs.navx.frc.AHRS;
 import edu.wpi.first.wpilibj.motorcontrol.MotorController;
 import edu.wpi.first.wpilibj.motorcontrol.MotorControllerGroup;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
-import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import com.fireteam322.frc.robot.Constants;
 
 public class Chassis extends SubsystemBase {
 	/**
 	 * The Chassis subsystem incorporates the sensors and actuators attached to the
-	 * robots chassis.
+	 * robot's chassis.
 	 * It includes the four drive motors (two on each side), quadrature encoders
-	 * connected directly to each sides gearbox, and a navX-MXP IMU.
+	 * connected directly to each sides gearbox (read through the front TalonSRX for
+	 * each side), and a navX-MXP IMU.
 	 */
 
 	private final WPI_TalonSRX m_leftFrontMotor = new WPI_TalonSRX(Constants.DRIVE_LEFTFRONT);
 	private final WPI_TalonSRX m_leftRearMotor = new WPI_TalonSRX(Constants.DRIVE_LEFTREAR);
 	private final WPI_TalonSRX m_rightFrontMotor = new WPI_TalonSRX(Constants.DRIVE_RIGHTFRONT);
 	private final WPI_TalonSRX m_rightRearMotor = new WPI_TalonSRX(Constants.DRIVE_RIGHTREAR);
-
-	// private final Encoder m_leftMotorEncoder = new Encoder(1, 10, false);
-	// private final Encoder m_rightMotorEncoder = new Encoder(2, 11, true);
 
 	private final MotorController m_leftMotors = new MotorControllerGroup(m_leftFrontMotor, m_leftRearMotor);
 	private final MotorController m_rightMotors = new MotorControllerGroup(m_rightFrontMotor, m_rightRearMotor);
@@ -55,17 +52,17 @@ public class Chassis extends SubsystemBase {
 		m_rightMotors.setInverted(true);
 
 		// Change the motors to "coast" mode
-		brakecoast(false);
+		brake(false);
 
 		// Setup the encoders
-		// m_leftFrontMotor.configSelectedFeedbackSensor(FeedbackDevice.QuadEncoder);
-		// m_rightFrontMotor.configSelectedFeedbackSensor(FeedbackDevice.QuadEncoder);
-		// System.out.println("Encoders Setup");
+		m_leftFrontMotor.configSelectedFeedbackSensor(FeedbackDevice.QuadEncoder);
+		m_rightFrontMotor.configSelectedFeedbackSensor(FeedbackDevice.QuadEncoder);
+		System.out.println("Encoders Setup");
 
 		// Choose whether to invert the encoders on the Talon SRX's
-		// m_leftFrontMotor.setSensorPhase(false);
-		// m_rightFrontMotor.setSensorPhase(false);
-		// System.out.println("Encoder Phasing Complete");
+		m_leftFrontMotor.setSensorPhase(false);
+		m_rightFrontMotor.setSensorPhase(false);
+		System.out.println("Encoder Phasing Complete");
 	}
 
 	/**
@@ -92,21 +89,6 @@ public class Chassis extends SubsystemBase {
 		m_rightRearMotor.follow(m_leftFrontMotor, FollowerType.AuxOutput1);
 	}
 
-	// If true, this method sets the robot to brake when the throttle is idle otherwise it allows the robot to coast.
-	public void brakecoast(boolean brake) {
-		if (brake) {
-			m_leftFrontMotor.setNeutralMode(NeutralMode.Brake);
-			m_leftRearMotor.setNeutralMode(NeutralMode.Brake);
-			m_rightFrontMotor.setNeutralMode(NeutralMode.Brake);
-			m_rightRearMotor.setNeutralMode(NeutralMode.Brake);
-		} else {
-			m_leftFrontMotor.setNeutralMode(NeutralMode.Coast);
-			m_leftRearMotor.setNeutralMode(NeutralMode.Coast);
-			m_rightFrontMotor.setNeutralMode(NeutralMode.Coast);
-			m_rightRearMotor.setNeutralMode(NeutralMode.Coast);
-		}
-	}
-
 	// This method sets the robot to brake when the throttle is idle.
 	public void brake(boolean brake) {
 		if (brake) {
@@ -122,26 +104,14 @@ public class Chassis extends SubsystemBase {
 		}
 	}
 
-	// This method sets the robot to coast when the throttle is idle.
-	public void coast(boolean coast) {
-		if (coast) {
-			m_leftFrontMotor.setNeutralMode(NeutralMode.Coast);
-			m_leftRearMotor.setNeutralMode(NeutralMode.Coast);
-			m_rightFrontMotor.setNeutralMode(NeutralMode.Coast);
-			m_rightRearMotor.setNeutralMode(NeutralMode.Coast);
-
-		} else {
-			m_leftFrontMotor.setNeutralMode(NeutralMode.Brake);
-			m_leftRearMotor.setNeutralMode(NeutralMode.Brake);
-			m_rightFrontMotor.setNeutralMode(NeutralMode.Brake);
-			m_rightRearMotor.setNeutralMode(NeutralMode.Brake);
-		}
-	}
-
 	// This stops the robot
 	public void stop() {
 		m_drive.arcadeDrive(0.0, 0.0);
-		brakecoast(true);
+		brake(true);
+	}
+
+	public DifferentialDrive getDrive() {
+		return m_drive;
 	}
 
 	// The following are feed-through functions providing public access to Encoder
