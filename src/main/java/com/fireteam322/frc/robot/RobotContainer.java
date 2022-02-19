@@ -26,7 +26,7 @@ public class RobotContainer {
 	private static SendableChooser<Command> autonomousChooser = new SendableChooser<>();
 
 	private final AddressableLEDs m_AddressableLEDs = new AddressableLEDs(Constants.ADDRESSABLE_LED_PORT, Constants.ADDRESSABLE_LED_LENGTH);
-	public final Chassis m_chassis = new Chassis();
+	private final Chassis m_chassis = new Chassis();
 	private final RobotCamera m_frontCamera = new RobotCamera("Front Camera", Constants.FRONT_CAMERA_CHANNEL);
 	private final RobotCamera m_rearCamera = new RobotCamera("Rear Camera", Constants.REAR_CAMERA_CHANNEL);
 	private final RobotPower m_robotPower = new RobotPower();
