@@ -25,11 +25,10 @@ public class RobotContainer {
 	private static Command m_autoCommand;
 	private static SendableChooser<Command> autonomousChooser = new SendableChooser<>();
 
-	// private final AddressableLEDs m_AddressableLEDs = new AddressableLEDs();
+	private final AddressableLEDs m_AddressableLEDs = new AddressableLEDs(Constants.ADDRESSABLE_LED_PORT, Constants.ADDRESSABLE_LED_LENGTH);
 	public final Chassis m_chassis = new Chassis();
-	// private final LED m_led = new LED();
-	private final RobotCamera m_frontCamera = new RobotCamera("Front Camera", 0);
-	private final RobotCamera m_rearCamera = new RobotCamera("Rear Camera", 1);
+	private final RobotCamera m_frontCamera = new RobotCamera("Front Camera", Constants.FRONT_CAMERA_CHANNEL);
+	private final RobotCamera m_rearCamera = new RobotCamera("Rear Camera", Constants.REAR_CAMERA_CHANNEL);
 	private final RobotPower m_robotPower = new RobotPower();
 	private final RearClimber m_rearClimber = new RearClimber();
 	private final FrontClimber m_frontClimber = new FrontClimber();
@@ -78,7 +77,7 @@ public class RobotContainer {
 		m_shooter.setDefaultCommand(new RunShooter(m_shooter, () -> (m_manipulatorStick.getRightTriggerAxis()
 				- m_manipulatorStick.getLeftTriggerAxis())));
 
-		// m_led.setDefaultCommand(new AutomaticLED(m_led, m_AddressableLEDs));
+		m_AddressableLEDs.setDefaultCommand(new AutomaticAddressableLED(m_AddressableLEDs));
 
 		m_frontCamera.setDefaultCommand(new RunFrontCamera(m_frontCamera));
 		m_rearCamera.setDefaultCommand(new RunRearCamera(m_rearCamera));
@@ -93,12 +92,11 @@ public class RobotContainer {
 	}
 
 	/**
-	 * Use this method to define your button->command mappings. Buttons can be
-	 * created by
-	 * instantiating a {@link GenericHID} or one of its subclasses ({@link
-	 * edu.wpi.first.wpilibj.Joystick} or {@link XboxController}), and then passing
-	 * it to a {@link
-	 * edu.wpi.first.wpilibj2.command.button.JoystickButton}.
+	 * Use this method to define your button->command mappings.
+	 * Buttons can be created by instantiating a {@link GenericHID}
+	 * or one of its subclasses ({@link edu.wpi.first.wpilibj.Joystick}
+	 * or {@link XboxController}), and then passing it to a
+	 * {@link edu.wpi.first.wpilibj2.command.button.JoystickButton}.
 	 */
 	private void configureButtonBindings() {
 		m_feederButton.whileActiveOnce(new RunFeeder(m_feeder, () -> Constants.FEEDER_SPEED), true);
