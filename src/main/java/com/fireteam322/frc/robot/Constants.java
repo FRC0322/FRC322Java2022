@@ -6,24 +6,24 @@ package com.fireteam322.frc.robot;
 
 /**
  * The Constants class provides a convenient place for teams to hold robot-wide
- * numerical or boolean
- * constants. This class should not be used for any other purpose. All constants
- * should be declared
- * globally (i.e. public static). Do not put anything functional in this class.
+ * numerical or boolean constants.
+ * This class should not be used for any other purpose.
+ * All constants should be declared globally (i.e. public static).
+ * Do not put anything functional in this class.
  *
  * <p>
  * It is advised to statically import this class (or one of its inner classes)
- * wherever the
- * constants are needed, to reduce verbosity.
+ * wherever the constants are needed, to reduce verbosity.
  */
 public final class Constants {
 	// AddressableLEDs.java
 	public static final int ADDRESSABLE_LED_PORT = 0,
-			ADDRESSABLE_LED_LENGTH = 60;
+			ADDRESSABLE_LED_LENGTH = 300;
 
 	// AutomaticAddressableLED.java
 	public static final double AUTONOMOUS_BLINK_RATE = 0.25,
 			TELOP_BLINK_RATE = 0.5,
+			ESTOP_BLINK_RATE = 0.05,
 			DISABLED_BLINK_RATE = 0.0,
 			DEFAULT_BLINK_RATE = 2.5;
 
