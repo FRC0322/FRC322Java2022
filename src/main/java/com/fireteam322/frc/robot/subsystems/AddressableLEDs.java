@@ -19,7 +19,7 @@ import com.fireteam322.frc.robot.Constants;
 public class AddressableLEDs extends SubsystemBase {
 	private final AddressableLED m_LED;
 	private final AddressableLEDBuffer m_LEDBuffer;
-	private final int  LED_PORT, LED_LENGTH;
+	private final int LED_PORT, LED_LENGTH;
 	private Color m_ledColor;
 	private int m_rainbowFirstPixelHue;
 	private double m_timer, m_blinkRate;
@@ -106,12 +106,18 @@ public class AddressableLEDs extends SubsystemBase {
 		} else if (m_timer == 0.0 && m_blinkRate >= 0.05) {
 			m_timer = Timer.getFPGATimestamp();
 		} else if ((Timer.getFPGATimestamp() < (m_timer + m_blinkRate)) && m_blinkRate >= 0.05) {
-			for (var j = 0; j < this.getLength(); j++) {
+			for (var j = 0; j < this.getLength(); j += 2) {
 				this.setLED(j, m_ledColor);
 			}
-		} else if ((Timer.getFPGATimestamp() >= (m_timer + m_blinkRate)) && m_blinkRate >= 0.05) {
-			for (var k = 0; k < this.getLength(); k++) {
+			for (var k = 1; k < this.getLength(); k += 2) {
 				this.setLED(k, Color.kBlack);
+			}
+		} else if ((Timer.getFPGATimestamp() >= (m_timer + m_blinkRate)) && m_blinkRate >= 0.05) {
+			for (var l = 1; l < this.getLength(); l += 2) {
+				this.setLED(l, m_ledColor);
+			}
+			for (var m = 0; m < this.getLength(); m += 2) {
+				this.setLED(m, Color.kBlack);
 			}
 			m_timer = Timer.getFPGATimestamp();
 		} else
