@@ -8,7 +8,7 @@
 package com.fireteam322.frc.robot.subsystems;
 
 import edu.wpi.first.hal.PowerDistributionFaults;
-import edu.wpi.first.hal.PowerDistributionStickyFaults;
+//import edu.wpi.first.hal.PowerDistributionStickyFaults;
 import edu.wpi.first.wpilibj.PowerDistribution;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import com.fireteam322.frc.robot.Constants;
@@ -60,10 +60,11 @@ public class RobotPower extends SubsystemBase {
 		return m_pdp.getFaults();
 	}
 
-	public PowerDistributionStickyFaults getStickyFaults() {
-		return m_pdp.getStickyFaults();
-	}
-
+	/*
+	 * public PowerDistributionStickyFaults getStickyFaults() {
+	 * return m_pdp.getStickyFaults();
+	 * }
+	 */
 	@Override
 	public void periodic() {
 		// This method will be called once per scheduler run

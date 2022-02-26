@@ -29,7 +29,7 @@ public class RobotContainer {
 	private final Chassis m_chassis = new Chassis();
 	private final RobotCamera m_frontCamera = new RobotCamera("Front Camera", Constants.FRONT_CAMERA_CHANNEL);
 	private final RobotCamera m_rearCamera = new RobotCamera("Rear Camera", Constants.REAR_CAMERA_CHANNEL);
-	private final RobotPower m_robotPower = new RobotPower();
+	//private final RobotPower m_robotPower = new RobotPower();
 	private final RearClimber m_rearClimber = new RearClimber();
 	private final FrontClimber m_frontClimber = new FrontClimber();
 	private final Feeder m_feeder = new Feeder();
@@ -82,7 +82,8 @@ public class RobotContainer {
 		m_frontCamera.setDefaultCommand(new RunFrontCamera(m_frontCamera));
 		m_rearCamera.setDefaultCommand(new RunRearCamera(m_rearCamera));
 
-		m_robotPower.setDefaultCommand(new StartRobotPower(m_robotPower));
+		// We're not using the RobotPower Subsystem for anything.
+		//m_robotPower.setDefaultCommand(new StartRobotPower(m_robotPower));
 
 		// Setup the SendableChooser
 		chooserSetup();
