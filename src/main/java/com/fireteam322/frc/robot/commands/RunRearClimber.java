@@ -34,8 +34,7 @@ public class RunRearClimber extends CommandBase {
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
-    if (!interrupted)
-      m_climber.stop();
+    m_climber.stop();
   }
 
   // Returns true when the command should end.
