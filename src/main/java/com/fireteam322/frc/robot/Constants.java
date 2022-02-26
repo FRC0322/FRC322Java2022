@@ -61,11 +61,11 @@ public final class Constants {
 			CLIMBER_REVERSE_SPEED = -(1.0);
 
 	// FrontClimber.java
-	public static final int FRONT_CLIMBER_MOTOR = 3;
+	public static final int FRONT_CLIMBER_MOTOR = 9;
 
 	// RearClimber.java
-	public static final int REAR_LEFT_CLIMBER_MOTOR = 1,
-			REAR_RIGHT_CLIMBER_MOTOR = 2;
+	public static final int REAR_LEFT_CLIMBER_MOTOR = 10,
+			REAR_RIGHT_CLIMBER_MOTOR = 11;
 
 	// RunFrontCamera.java & RunRearCamera.java
 	public static final int VIDEO_WIDTH = 320,
