@@ -22,7 +22,7 @@ public class StartRobotPower extends CommandBase {
   @Override
   public void initialize() {
     m_robotPower.resetTotalEnergy();
-    m_robotPower.clearStickyFaults();
+    //m_robotPower.clearStickyFaults();
   }
 
   // Called every time the scheduler runs while the command is scheduled.
