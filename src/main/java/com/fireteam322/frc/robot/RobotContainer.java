@@ -77,6 +77,9 @@ public class RobotContainer {
 		m_shooter.setDefaultCommand(new RunShooter(m_shooter, () -> (m_manipulatorStick.getRightTriggerAxis()
 				- m_manipulatorStick.getLeftTriggerAxis())));
 
+		m_frontClimber.setDefaultCommand(new RunFrontClimber(m_frontClimber, m_manipulatorStick.getLeftX()));
+		m_rearClimber.setDefaultCommand(new RunRearClimber(m_rearClimber, m_manipulatorStick.getRightX()));
+
 		m_AddressableLEDs.setDefaultCommand(new AutomaticAddressableLED(m_AddressableLEDs));
 
 		m_frontCamera.setDefaultCommand(new RunFrontCamera(m_frontCamera));
