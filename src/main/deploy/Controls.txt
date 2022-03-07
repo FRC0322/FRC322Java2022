@@ -1,0 +1,48 @@
+DriveStick (USB Port 0)
+
+Right Trigger = Forward
+Left Trigger = Backward
+(Right Trigger - Left Trigger = overall speed)
+
+Left Bumper = Brake
+
+X = Rear Climber Down
+A = Front Climber Down
+
+Y = Rear Climber Up
+B = Front Climber Up
+
+
+Left Joystick (USB Port 2)
+
+Stick Y = Left Side Drive
+Button 3 = Front Climb Down
+Button 4 = Front Climb Up
+
+Right Joystick (USB Port 3)
+
+Stick Y = Right Side Drive
+Trigger = Brake Button
+Button 3 = Rear Climb Down
+Button 4 = Rear Climb Up
+
+
+Manipulator Stick (USB Port 1)
+
+A = Feeder Forward
+B = Feeder Reverse
+
+X = Shooter Forward
+Y = Shooter Reverse
+
+Left Bumper = Intake Reverse
+Right Bumper = Intake Forward
+
+Left Stick Y = Feeder [DEBUG ONLY]
+Right Stick Y = Intake [DEBUG ONLY]
+
+Right Trigger - Left Trigger = Shooter Speed [DEBUG ONLY]
+(Right Trigger = Forward   Left Trigger = Reverse) [DEBUG ONLY]
+
+Left Stick X = Front Climber [DEBUG ONLY]
+Right Stick X = Rear Climber [DEBUG ONLY]
