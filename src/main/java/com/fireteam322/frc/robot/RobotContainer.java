@@ -40,20 +40,29 @@ public class RobotContainer {
 
 	private final F310Controller m_driveStick = new F310Controller(Constants.DRIVE_STICK);
 	private final F310Controller m_manipulatorStick = new F310Controller(Constants.MANIPULATOR_STICK);
-	//private final Joystick m_leftDriveStick = new Joystick(Constants.LEFT_DRIVE_STICK);
-	//private final Joystick m_rightDriveStick = new Joystick(Constants.RIGHT_DRIVE_STICK);
+	//private final Joystick m_leftDriveJoystick = new Joystick(Constants.LEFT_DRIVE_STICK);
+	//private final Joystick m_rightDriveJoystick = new Joystick(Constants.RIGHT_DRIVE_STICK);
 
-	private final JoystickButton m_brakeButton = new JoystickButton(m_driveStick, F310Controller.Button.kA.getValue());
-	//private final JoystickButton m_brakeButton2 = new JoystickButton(m_leftDriveStick,
+	private final JoystickButton m_brakeButton = new JoystickButton(m_driveStick,
+			F310Controller.Button.kBumperLeft.getValue());
+	//private final JoystickButton m_brakeButton2 = new JoystickButton(m_RightDriveJoystick,
 	//		Joystick.ButtonType.kTrigger.value);
 	private final JoystickButton m_rearClimbButton = new JoystickButton(m_driveStick,
 			F310Controller.Button.kX.getValue());
+	//private final JoystickButton m_rearClimbButtonJoystick = new JoystickButton(m_rightDriveJoystick,
+	//		Constants.CLIMB_JOYSTICK_BUTTON);
 	private final JoystickButton m_frontClimbButton = new JoystickButton(m_driveStick,
 			F310Controller.Button.kA.getValue());
+	//private final JoystickButton m_frontClimbButtonJoystick = new JoystickButton(m_leftDriveJoystick,
+	//		Constants.CLIMB_JOYSTICK_BUTTON);
 	private final JoystickButton m_rearClimbReverseButton = new JoystickButton(m_driveStick,
 			F310Controller.Button.kY.getValue());
+	//private final JoystickButton m_rearClimbReverseButtonJoystick = new JoystickButton(m_rightDriveJoystick,
+	//		Constants.CLIMB_REVERSE_JOYSTICK_BUTTON);
 	private final JoystickButton m_frontClimbReverseButton = new JoystickButton(m_driveStick,
 			F310Controller.Button.kB.getValue());
+	//private final JoystickButton m_frontClimbReverseButtonJoystick = new JoystickButton(m_leftDriveJoystick,
+	//		Constants.CLIMB_REVERSE_JOYSTICK_BUTTON);
 	private final JoystickButton m_feederButton = new JoystickButton(m_manipulatorStick,
 			F310Controller.Button.kA.getValue());
 	private final JoystickButton m_feederReverseButton = new JoystickButton(m_manipulatorStick,
@@ -76,8 +85,8 @@ public class RobotContainer {
 				() -> (m_driveStick.getRightTriggerAxis() - m_driveStick.getLeftTriggerAxis()),
 				() -> (m_driveStick.getLeftX()), m_chassis, m_brakeButton));
 
-		//m_chassis.setDefaultCommand(new DriveWithJoysticks(() -> (m_leftDriveStick.getY()),
-		//		() -> m_rightDriveStick.getY(), m_chassis, m_brakeButton2));
+		//m_chassis.setDefaultCommand(new DriveWithJoysticks(() -> (m_leftDriveJoystick.getY()),
+		//		() -> m_rightDriveJoystick.getY(), m_chassis, m_brakeButton2));
 
 		m_feeder.setDefaultCommand(new RunFeeder(m_feeder, () -> -m_manipulatorStick.getLeftY()));
 
@@ -124,8 +133,14 @@ public class RobotContainer {
 		m_rearClimbButton.whileActiveOnce(new RunRearClimber(m_rearClimber, Constants.CLIMBER_SPEED));
 		m_rearClimbReverseButton.whileActiveOnce(new RunRearClimber(m_rearClimber, Constants.CLIMBER_REVERSE_SPEED));
 
+		//m_rearClimbButtonJoystick.whileActiveOnce(new RunRearClimber(m_rearClimber, Constants.CLIMBER_SPEED));
+		//m_rearClimbReverseButtonJoystick.whileActiveOnce(new RunRearClimber(m_rearClimber, Constants.CLIMBER_REVERSE_SPEED));
+
 		m_frontClimbButton.whileActiveOnce(new RunFrontClimber(m_frontClimber, Constants.CLIMBER_SPEED));
 		m_frontClimbReverseButton.whileActiveOnce(new RunFrontClimber(m_frontClimber, Constants.CLIMBER_REVERSE_SPEED));
+
+		//m_frontClimbButtonJoystick.whileActiveOnce(new RunFrontClimber(m_frontClimber, Constants.CLIMBER_SPEED));
+		//m_frontClimbReverseButtonJoystick.whileActiveOnce(new RunFrontClimber(m_frontClimber, Constants.CLIMBER_REVERSE_SPEED));
 
 	}
 
