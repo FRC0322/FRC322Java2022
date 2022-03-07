@@ -4,6 +4,7 @@
 
 package com.fireteam322.frc.robot;
 
+//import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
@@ -25,11 +26,12 @@ public class RobotContainer {
 	private static Command m_autoCommand;
 	private static SendableChooser<Command> autonomousChooser = new SendableChooser<>();
 
-	private final AddressableLEDs m_AddressableLEDs = new AddressableLEDs(Constants.ADDRESSABLE_LED_PORT, Constants.ADDRESSABLE_LED_LENGTH);
+	private final AddressableLEDs m_AddressableLEDs = new AddressableLEDs(Constants.ADDRESSABLE_LED_PORT,
+			Constants.ADDRESSABLE_LED_LENGTH);
 	private final Chassis m_chassis = new Chassis();
 	private final RobotCamera m_frontCamera = new RobotCamera("Front Camera", Constants.FRONT_CAMERA_CHANNEL);
 	private final RobotCamera m_rearCamera = new RobotCamera("Rear Camera", Constants.REAR_CAMERA_CHANNEL);
-	//private final RobotPower m_robotPower = new RobotPower();
+	// private final RobotPower m_robotPower = new RobotPower();
 	private final RearClimber m_rearClimber = new RearClimber();
 	private final FrontClimber m_frontClimber = new FrontClimber();
 	private final Feeder m_feeder = new Feeder();
@@ -38,8 +40,12 @@ public class RobotContainer {
 
 	private final F310Controller m_driveStick = new F310Controller(Constants.DRIVE_STICK);
 	private final F310Controller m_manipulatorStick = new F310Controller(Constants.MANIPULATOR_STICK);
+	//private final Joystick m_leftDriveStick = new Joystick(Constants.LEFT_DRIVE_STICK);
+	//private final Joystick m_rightDriveStick = new Joystick(Constants.RIGHT_DRIVE_STICK);
 
 	private final JoystickButton m_brakeButton = new JoystickButton(m_driveStick, F310Controller.Button.kA.getValue());
+	//private final JoystickButton m_brakeButton2 = new JoystickButton(m_leftDriveStick,
+	//		Joystick.ButtonType.kTrigger.value);
 	private final JoystickButton m_rearClimbButton = new JoystickButton(m_driveStick,
 			F310Controller.Button.kX.getValue());
 	private final JoystickButton m_frontClimbButton = new JoystickButton(m_driveStick,
@@ -70,6 +76,9 @@ public class RobotContainer {
 				() -> (m_driveStick.getRightTriggerAxis() - m_driveStick.getLeftTriggerAxis()),
 				() -> (m_driveStick.getLeftX()), m_chassis, m_brakeButton));
 
+		//m_chassis.setDefaultCommand(new DriveWithJoysticks(() -> (m_leftDriveStick.getY()),
+		//		() -> m_rightDriveStick.getY(), m_chassis, m_brakeButton2));
+
 		m_feeder.setDefaultCommand(new RunFeeder(m_feeder, () -> -m_manipulatorStick.getLeftY()));
 
 		m_intake.setDefaultCommand(new RunIntake(m_intake, () -> -m_manipulatorStick.getRightY()));
@@ -86,7 +95,7 @@ public class RobotContainer {
 		m_rearCamera.setDefaultCommand(new RunRearCamera(m_rearCamera));
 
 		// We're not using the RobotPower Subsystem for anything.
-		//m_robotPower.setDefaultCommand(new StartRobotPower(m_robotPower));
+		// m_robotPower.setDefaultCommand(new StartRobotPower(m_robotPower));
 
 		// Setup the SendableChooser
 		chooserSetup();

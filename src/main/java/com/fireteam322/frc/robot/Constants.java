@@ -48,6 +48,8 @@ public final class Constants {
 	public static final int DRIVE_STICK = 0,
 			MANIPULATOR_STICK = 1,
 			DEBUGGER_STICK = 2,
+			LEFT_DRIVE_STICK = 3,
+			RIGHT_DRIVE_STICK = 4,
 			CAMERASERVER_FEEDS = 2,
 			FRONT_CAMERA_CHANNEL = 0,
 			REAR_CAMERA_CHANNEL = 1;

@@ -76,6 +76,16 @@ public class Chassis extends SubsystemBase {
 	}
 
 	/**
+	 * Classic two joystick style driving for the Chassis.
+	 *
+	 * @param leftspeed    Speed of the left motors in range [-1.0,1.0]
+	 * @param rightspeed    Speed of the right motors in range [-1.0,1.0]
+	 */
+	public void driveClassic(double leftspeed, double rightspeed) {
+		m_drive.tankDrive(leftspeed, rightspeed);
+	}
+
+	/**
 	 * MotionMagic Autonomous driving for the Chassis.
 	 *
 	 * @param heading  Heading in degrees
