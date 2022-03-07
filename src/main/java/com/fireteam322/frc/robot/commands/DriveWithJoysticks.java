@@ -16,7 +16,7 @@ import com.fireteam322.frc.robot.subsystems.Chassis;
 /**
  * Have the robot drive racing game style.
  */
-public class DriveWithJoystick extends CommandBase {
+public class DriveWithJoysticks extends CommandBase {
 	private final Chassis m_chassis;
 	private final DoubleSupplier m_left;
 	private final DoubleSupplier m_right;
@@ -29,7 +29,7 @@ public class DriveWithJoystick extends CommandBase {
 	 * @param right      The control input for the right sight of the drive
 	 * @param drivetrain The drivetrain subsystem to drive
 	 */
-	public DriveWithJoystick(DoubleSupplier left, DoubleSupplier right, Chassis chassis,
+	public DriveWithJoysticks(DoubleSupplier left, DoubleSupplier right, Chassis chassis,
 			JoystickButton brake) {
 		m_chassis = chassis;
 		m_left = left;
@@ -46,7 +46,7 @@ public class DriveWithJoystick extends CommandBase {
 	// Called repeatedly when this Command is scheduled to run
 	@Override
 	public void execute() {
-		m_chassis.drive(m_left.getAsDouble(), m_right.getAsDouble());
+		m_chassis.driveClassic(m_left.getAsDouble(), m_right.getAsDouble());
 		if (m_brakeButton.get())
 			m_chassis.brake(true);
 		else

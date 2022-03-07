@@ -19,20 +19,25 @@ import com.fireteam322.frc.robot.Constants;
 public class AddressableLEDs extends SubsystemBase {
 	private final AddressableLED m_LED;
 	private final AddressableLEDBuffer m_LEDBuffer;
+	private final int LED_PORT, LED_LENGTH;
 	private Color m_ledColor;
 	private int m_rainbowFirstPixelHue;
-	private double m_startTime;
+	private double m_timer, m_blinkRate;
+
 	/**
 	 * Creates a new AddressableLEDs.
 	 */
-	public AddressableLEDs() {
+	public AddressableLEDs(int port, int length) {
 		super();
-		m_startTime = 0.0;
+		LED_PORT = port;
+		LED_LENGTH = length;
+		m_timer = 0.0;
 		m_rainbowFirstPixelHue = 0;
+		m_blinkRate = 1.0;
 
-		m_LED = new AddressableLED(Constants.ADDRESSABLE_LED_PORT);
-		m_LED.setLength(Constants.ADDRESSABLE_LED_LENGTH);
-		m_LEDBuffer = new AddressableLEDBuffer(Constants.ADDRESSABLE_LED_LENGTH);
+		m_LED = new AddressableLED(LED_PORT);
+		m_LED.setLength(LED_LENGTH);
+		m_LEDBuffer = new AddressableLEDBuffer(LED_LENGTH);
 	}
 
 	public Color getLED(int index) {
@@ -49,60 +54,74 @@ public class AddressableLEDs extends SubsystemBase {
 
 	public void setLED(int index, Color color) {
 		m_LEDBuffer.setLED(index, color);
+		this.setData();
 	}
 
 	public void setLED(int index, Color8Bit color) {
 		m_LEDBuffer.setLED(index, color);
+		this.setData();
 	}
 
 	public void setLEDRGB(int index, int r, int g, int b) {
 		m_LEDBuffer.setRGB(index, r, g, b);
+		this.setData();
 	}
 
 	public void setLEDHSV(int index, int h, int s, int v) {
 		m_LEDBuffer.setHSV(index, h, s, v);
+		this.setData();
+	}
+
+	private void setData() {
+		m_LED.setData(m_LEDBuffer);
 	}
 
 	public void automaticLEDSetter() {
-		var blinkRate = 0.0;
-		if(DriverStation.isDisabled()) blinkRate = Constants.DISABLED_BLINK_RATE;
-		else if(DriverStation.isAutonomous()) blinkRate = Constants.AUTONOMOUS_BLINK_RATE;
-		else if(DriverStation.isTeleop()) blinkRate = Constants.TELOP_BLINK_RATE;
-		else blinkRate = 0.0;
+		if (DriverStation.isEStopped())
+			m_blinkRate = Constants.ESTOP_BLINK_RATE;
+		else if (DriverStation.isDisabled())
+			m_blinkRate = Constants.DISABLED_BLINK_RATE;
+		else if (DriverStation.isAutonomous())
+			m_blinkRate = Constants.AUTONOMOUS_BLINK_RATE;
+		else if (DriverStation.isTeleop())
+			m_blinkRate = Constants.TELOP_BLINK_RATE;
+		else
+			m_blinkRate = 1.0;
 
-		if(DriverStation.getAlliance() == DriverStation.Alliance.Red) {
+		if (DriverStation.getAlliance() == DriverStation.Alliance.Red) {
 			m_ledColor = Color.kFirstRed;
-		}
-		else if(DriverStation.getAlliance() == DriverStation.Alliance.Blue) {
+		} else if (DriverStation.getAlliance() == DriverStation.Alliance.Blue) {
 			m_ledColor = Color.kFirstBlue;
-		}
-		else if(DriverStation.getAlliance() == DriverStation.Alliance.Invalid) {
+		} else if (DriverStation.getAlliance() == DriverStation.Alliance.Invalid) {
 			m_ledColor = Color.kKhaki;
-		}
-		else {
+		} else {
 			m_ledColor = Color.kDarkMagenta;
 		}
 
-		if (blinkRate < 0.03) {
+		if (m_blinkRate < 0.05) {
+			m_blinkRate = 0.0;
 			for (var i = 0; i < this.getLength(); i++) {
 				this.setLED(i, m_ledColor);
 			}
-		}
-		else if (m_startTime == 0.0 && blinkRate >= 0.03) {
-			m_startTime = Timer.getFPGATimestamp();
-		}
-		else if(((Timer.getFPGATimestamp()) < (m_startTime + blinkRate)) && blinkRate >= 0.03) {
-			for (var j = 0; j < this.getLength(); j++) {
+		} else if (m_timer == 0.0 && m_blinkRate >= 0.05) {
+			m_timer = Timer.getFPGATimestamp();
+		} else if ((Timer.getFPGATimestamp() < (m_timer + m_blinkRate)) && m_blinkRate >= 0.05) {
+			for (var j = 0; j < this.getLength(); j += 2) {
 				this.setLED(j, m_ledColor);
 			}
-		}
-		else if((Timer.getFPGATimestamp() < (m_startTime + (blinkRate * 2))) && blinkRate >= 0.03) {
-			for (var k = 0; k < this.getLength(); k++) {
+			for (var k = 1; k < this.getLength(); k += 2) {
 				this.setLED(k, Color.kBlack);
 			}
-		}
-		else
-			m_startTime = 0.0;
+		} else if ((Timer.getFPGATimestamp() >= (m_timer + m_blinkRate)) && m_blinkRate >= 0.05) {
+			for (var l = 1; l < this.getLength(); l += 2) {
+				this.setLED(l, m_ledColor);
+			}
+			for (var m = 0; m < this.getLength(); m += 2) {
+				this.setLED(m, Color.kBlack);
+			}
+			m_timer = Timer.getFPGATimestamp();
+		} else
+			m_timer = 0.0;
 	}
 
 	public void rainbowLED() {
@@ -121,7 +140,7 @@ public class AddressableLEDs extends SubsystemBase {
 	}
 
 	public void StartLED() {
-		m_LED.setData(m_LEDBuffer);
+		this.setData();
 		m_LED.start();
 	}
 

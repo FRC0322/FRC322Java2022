@@ -7,48 +7,46 @@
 
 package com.fireteam322.frc.robot.commands;
 
+import java.util.function.DoubleSupplier;
+
 import edu.wpi.first.wpilibj2.command.CommandBase;
+import com.fireteam322.frc.robot.subsystems.Shooter;
 
-import com.fireteam322.frc.robot.Constants;
-import com.fireteam322.frc.robot.subsystems.RobotCamera;
-
-public class RunRearCamera extends CommandBase {
-	private final RobotCamera m_rearCamera;
+public class RunShooter extends CommandBase {
+	private final Shooter m_shooter;
+	private final DoubleSupplier m_speed;
 
 	/**
-	 * Creates a new RunRearCamera.
+	 * Creates a new RunShooter.
 	 */
-	public RunRearCamera(RobotCamera rearCamera) {
-		m_rearCamera = rearCamera;
+	public RunShooter(Shooter shooter, DoubleSupplier speed) {
+		m_shooter = shooter;
+		m_speed = speed;
 		// Use addRequirements() here to declare subsystem dependencies.
-		addRequirements(m_rearCamera);
+		addRequirements(m_shooter);
 	}
 
 	// Called when the command is initially scheduled.
 	@Override
 	public void initialize() {
-		m_rearCamera.setResolution(Constants.VIDEO_WIDTH, Constants.VIDEO_HEIGHT);
-		m_rearCamera.setFPS(Constants.VIDEO_FPS);
 	}
 
 	// Called every time the scheduler runs while the command is scheduled.
 	@Override
 	public void execute() {
+		m_shooter.run(m_speed.getAsDouble());
 	}
 
 	// Called once the command ends or is interrupted.
 	@Override
 	public void end(boolean interrupted) {
+		if (!interrupted)
+			m_shooter.stop();
 	}
 
 	// Returns true when the command should end.
 	@Override
 	public boolean isFinished() {
 		return false;
-	}
-
-	@Override
-	public boolean runsWhenDisabled() {
-		return true;
 	}
 }

@@ -22,11 +22,13 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import com.fireteam322.frc.robot.Constants;
 
 public class Chassis extends SubsystemBase {
-/**
- * The Chassis subsystem incorporates the sensors and actuators attached to the robots chassis.
- * It includes the four drive motors (two on each side), quadrature encoders connected directly to each
- * front motor Talon SRX, and a navX-MXP IMU.
- */
+	/**
+	 * The Chassis subsystem incorporates the sensors and actuators attached to the
+	 * robot's chassis.
+	 * It includes the four drive motors (two on each side), quadrature encoders
+	 * connected directly to each sides gearbox (read through the front TalonSRX for
+	 * each side), and a navX-MXP IMU.
+	 */
 
 	private final WPI_TalonSRX m_leftFrontMotor = new WPI_TalonSRX(Constants.DRIVE_LEFTFRONT);
 	private final WPI_TalonSRX m_leftRearMotor = new WPI_TalonSRX(Constants.DRIVE_LEFTREAR);
@@ -45,12 +47,12 @@ public class Chassis extends SubsystemBase {
 	 */
 	public Chassis() {
 		super();
-		// Invert all four motors due to the way they're mounted.
+		// Invert the right side motors due to the way they're mounted.
 		m_leftMotors.setInverted(false);
-		m_rightMotors.setInverted(false);
+		m_rightMotors.setInverted(true);
 
 		// Change the motors to "coast" mode
-		coast(true);
+		brake(false);
 
 		// Setup the encoders
 		m_leftFrontMotor.configSelectedFeedbackSensor(FeedbackDevice.QuadEncoder);
@@ -66,11 +68,21 @@ public class Chassis extends SubsystemBase {
 	/**
 	 * Modern racing game style driving for the Chassis.
 	 *
-	 * @param speed  Speed in range [-1.0,1.0]
+	 * @param speed    Speed in range [-1.0,1.0]
 	 * @param rotation Rotation in range [-1.0,1.0]
 	 */
 	public void drive(double speed, double rotation) {
 		m_drive.arcadeDrive(speed, rotation);
+	}
+
+	/**
+	 * Classic two joystick style driving for the Chassis.
+	 *
+	 * @param leftspeed    Speed of the left motors in range [-1.0,1.0]
+	 * @param rightspeed    Speed of the right motors in range [-1.0,1.0]
+	 */
+	public void driveClassic(double leftspeed, double rightspeed) {
+		m_drive.tankDrive(leftspeed, rightspeed);
 	}
 
 	/**
@@ -89,34 +101,16 @@ public class Chassis extends SubsystemBase {
 
 	// This method sets the robot to brake when the throttle is idle.
 	public void brake(boolean brake) {
-		if(brake) {
+		if (brake) {
 			m_leftFrontMotor.setNeutralMode(NeutralMode.Brake);
 			m_leftRearMotor.setNeutralMode(NeutralMode.Brake);
 			m_rightFrontMotor.setNeutralMode(NeutralMode.Brake);
 			m_rightRearMotor.setNeutralMode(NeutralMode.Brake);
-		}
-		else {
+		} else {
 			m_leftFrontMotor.setNeutralMode(NeutralMode.Coast);
 			m_leftRearMotor.setNeutralMode(NeutralMode.Coast);
 			m_rightFrontMotor.setNeutralMode(NeutralMode.Coast);
 			m_rightRearMotor.setNeutralMode(NeutralMode.Coast);
-		}
-	}
-
-	// This method sets the robot to coast when the throttle is idle.
-	public void coast(boolean coast) {
-		if (coast) {
-			m_leftFrontMotor.setNeutralMode(NeutralMode.Coast);
-			m_leftRearMotor.setNeutralMode(NeutralMode.Coast);
-			m_rightFrontMotor.setNeutralMode(NeutralMode.Coast);
-			m_rightRearMotor.setNeutralMode(NeutralMode.Coast);
-
-		}
-		else {
-			m_leftFrontMotor.setNeutralMode(NeutralMode.Brake);
-			m_leftRearMotor.setNeutralMode(NeutralMode.Brake);
-			m_rightFrontMotor.setNeutralMode(NeutralMode.Brake);
-			m_rightRearMotor.setNeutralMode(NeutralMode.Brake);
 		}
 	}
 
@@ -126,7 +120,12 @@ public class Chassis extends SubsystemBase {
 		brake(true);
 	}
 
-	// The following are feed-through functions providing public access to Encoder ticks from the Talon SRX's
+	public DifferentialDrive getDrive() {
+		return m_drive;
+	}
+
+	// The following are feed-through functions providing public access to Encoder
+	// ticks from the Talon SRX's
 
 	// Raw encoder output from the left encoder
 	public double leftDistance() {
@@ -158,38 +157,41 @@ public class Chassis extends SubsystemBase {
 
 	/**
 	 * Returns true if the sensor is currently performing automatic
-	 * gyro/accelerometer calibration.  Automatic calibration occurs
+	 * gyro/accelerometer calibration. Automatic calibration occurs
 	 * when the sensor is initially powered on, during which time the
 	 * sensor should be held still, with the Z-axis pointing up
 	 * (perpendicular to the earth).
-	 *<p>
-	 * NOTE:  During this automatic calibration, the yaw, pitch and roll
+	 * <p>
+	 * NOTE: During this automatic calibration, the yaw, pitch and roll
 	 * values returned may not be accurate.
-	 *<p>
+	 * <p>
 	 * Once calibration is complete, the sensor will automatically remove
 	 * an internal yaw offset value from all reported values.
-	 *<p>
+	 * <p>
+	 *
 	 * @return Returns true if the sensor is currently automatically
-	 * calibrating the gyro and accelerometer sensors.
+	 *         calibrating the gyro and accelerometer sensors.
 	 */
 	public boolean isCalibrating() {
 		return m_imu.isCalibrating();
 	}
 
-	// The following are feed-through functions providing public access to the IMU data.
+	// The following are feed-through functions providing public access to the IMU
+	// data.
 
 	/**
 	 * Returns the current tilt-compensated compass heading
 	 * value (in degrees, from 0 to 360) reported by the sensor.
-	 *<p>
+	 * <p>
 	 * Note that this value is sensed by a magnetometer,
 	 * which can be affected by nearby magnetic fields (e.g., the
 	 * magnetic fields generated by nearby motors).
-	 *<p>
+	 * <p>
 	 * Before using this value, ensure that (a) the magnetometer
 	 * has been calibrated and (b) that a magnetic disturbance is
 	 * not taking place at the instant when the compass heading
 	 * was generated.
+	 *
 	 * @return The current tilt-compensated compass heading, in degrees (0-360).
 	 */
 	public float getCompassHeading() {
@@ -201,17 +203,20 @@ public class Chassis extends SubsystemBase {
 
 	/**
 	 * Returns the "fused" (9-axis) heading.
-	 *<p>
+	 * <p>
 	 * The 9-axis heading is the fusion of the yaw angle, the tilt-corrected
-	 * compass heading, and magnetic disturbance detection.  Note that the
+	 * compass heading, and magnetic disturbance detection. Note that the
 	 * magnetometer calibration procedure is required in order to
 	 * achieve valid 9-axis headings.
-	 *<p>
+	 * <p>
 	 * The 9-axis Heading represents the sensor's best estimate of current heading,
-	 * based upon the last known valid Compass Angle, and updated by the change in the
-	 * Yaw Angle since the last known valid Compass Angle.  The last known valid Compass
+	 * based upon the last known valid Compass Angle, and updated by the change in
+	 * the
+	 * Yaw Angle since the last known valid Compass Angle. The last known valid
+	 * Compass
 	 * Angle is updated whenever a Calibrated Compass Angle is read and the sensor
 	 * has recently rotated less than the Compass Noise Bandwidth (~2 degrees).
+	 *
 	 * @return Fused Heading in Degrees (range 0-360)
 	 */
 	public float getHeading() {
@@ -221,80 +226,86 @@ public class Chassis extends SubsystemBase {
 			return 0.0f;
 	}
 
-/**
- * Returns the total accumulated yaw angle (Z Axis, in degrees)
- * reported by the sensor.
- *<p>
- * NOTE: The angle is continuous, meaning it's range is beyond 360 degrees.
- * This ensures that algorithms that wouldn't want to see a discontinuity
- * in the gyro output as it sweeps past 0 on the second time around.
- *<p>
- * Note that the returned yaw value will be offset by a user-specified
- * offset value; this user-specified offset value is set by
- * invoking the zeroYaw() method.
- *<p>
- * @return The current total accumulated yaw angle (Z axis) of the robot
- * in degrees. This heading is based on integration of the returned rate
- * from the Z-axis (yaw) gyro.
- */
+	/**
+	 * Returns the total accumulated yaw angle (Z Axis, in degrees)
+	 * reported by the sensor.
+	 * <p>
+	 * NOTE: The angle is continuous, meaning it's range is beyond 360 degrees.
+	 * This ensures that algorithms that wouldn't want to see a discontinuity
+	 * in the gyro output as it sweeps past 0 on the second time around.
+	 * <p>
+	 * Note that the returned yaw value will be offset by a user-specified
+	 * offset value; this user-specified offset value is set by
+	 * invoking the zeroYaw() method.
+	 * <p>
+	 *
+	 * @return The current total accumulated yaw angle (Z axis) of the robot
+	 *         in degrees. This heading is based on integration of the returned rate
+	 *         from the Z-axis (yaw) gyro.
+	 */
 	public double getAngle() {
 		return m_imu.getAngle();
 	}
 
-/**
- * Return the rate of rotation of the yaw (Z-axis) gyro, in degrees per second.
- *<p>
- * The rate is based on the most recent reading of the yaw gyro angle.
- *<p>
- * @return The current rate of change in yaw angle (in degrees per second)
- */
+	/**
+	 * Return the rate of rotation of the yaw (Z-axis) gyro, in degrees per second.
+	 * <p>
+	 * The rate is based on the most recent reading of the yaw gyro angle.
+	 * <p>
+	 *
+	 * @return The current rate of change in yaw angle (in degrees per second)
+	 */
 	public double getRate() {
 		return m_imu.getRate();
 	}
 
-/**
- * Returns the current pitch value (in degrees, from -180 to 180)
- * reported by the sensor.  Pitch is a measure of rotation around
- * the X Axis.
- * @return The current pitch value in degrees (-180 to 180).
- */
+	/**
+	 * Returns the current pitch value (in degrees, from -180 to 180)
+	 * reported by the sensor. Pitch is a measure of rotation around
+	 * the X Axis.
+	 *
+	 * @return The current pitch value in degrees (-180 to 180).
+	 */
 	public float getPitch() {
 		return m_imu.getPitch();
 	}
 
-/**
- * Returns the current roll value (in degrees, from -180 to 180)
- * reported by the sensor.  Roll is a measure of rotation around
- * the X Axis.
- * @return The current roll value in degrees (-180 to 180).
- */
+	/**
+	 * Returns the current roll value (in degrees, from -180 to 180)
+	 * reported by the sensor. Roll is a measure of rotation around
+	 * the X Axis.
+	 *
+	 * @return The current roll value in degrees (-180 to 180).
+	 */
 	public float getRoll() {
 		return m_imu.getRoll();
 	}
 
-/**
- * Returns the current yaw value (in degrees, from -180 to 180)
- * reported by the sensor.  Yaw is a measure of rotation around
- * the Z Axis (which is perpendicular to the earth).
- *<p>
- * Note that the returned yaw value will be offset by a user-specified
- * offset value; this user-specified offset value is set by
- * invoking the zeroYaw() method.
- * @return The current yaw value in degrees (-180 to 180).
- */
+	/**
+	 * Returns the current yaw value (in degrees, from -180 to 180)
+	 * reported by the sensor. Yaw is a measure of rotation around
+	 * the Z Axis (which is perpendicular to the earth).
+	 * <p>
+	 * Note that the returned yaw value will be offset by a user-specified
+	 * offset value; this user-specified offset value is set by
+	 * invoking the zeroYaw() method.
+	 *
+	 * @return The current yaw value in degrees (-180 to 180).
+	 */
 	public float getYaw() {
 		return m_imu.getYaw();
 	}
 
 	/**
 	 * Returns the current linear acceleration in the X-axis (in G).
-	 *<p>
+	 * <p>
 	 * World linear acceleration refers to raw acceleration data, which
 	 * has had the gravity component removed, and which has been rotated to
-	 * the same reference frame as the current yaw value.  The resulting
+	 * the same reference frame as the current yaw value. The resulting
 	 * value represents the current acceleration in the x-axis of the
 	 * body (e.g., the robot) on which the sensor is mounted.
-	 *<p>
+	 * <p>
+	 *
 	 * @return Current world linear acceleration in the X-axis (in G).
 	 */
 	public float getWorldLinearAccelX() {
@@ -303,13 +314,14 @@ public class Chassis extends SubsystemBase {
 
 	/**
 	 * Returns the current linear acceleration in the Y-axis (in G).
-	 *<p>
+	 * <p>
 	 * World linear acceleration refers to raw acceleration data, which
 	 * has had the gravity component removed, and which has been rotated to
-	 * the same reference frame as the current yaw value.  The resulting
+	 * the same reference frame as the current yaw value. The resulting
 	 * value represents the current acceleration in the Y-axis of the
 	 * body (e.g., the robot) on which the sensor is mounted.
-	 *<p>
+	 * <p>
+	 *
 	 * @return Current world linear acceleration in the Y-axis (in G).
 	 */
 	public float getWorldLinearAccelY() {
@@ -318,13 +330,14 @@ public class Chassis extends SubsystemBase {
 
 	/**
 	 * Returns the current linear acceleration in the Z-axis (in G).
-	 *<p>
+	 * <p>
 	 * World linear acceleration refers to raw acceleration data, which
 	 * has had the gravity component removed, and which has been rotated to
-	 * the same reference frame as the current yaw value.  The resulting
+	 * the same reference frame as the current yaw value. The resulting
 	 * value represents the current acceleration in the Z-axis of the
 	 * body (e.g., the robot) on which the sensor is mounted.
-	 *<p>
+	 * <p>
+	 *
 	 * @return Current world linear acceleration in the Z-axis (in G).
 	 */
 	public float getWorldLinearAccelZ() {
@@ -336,7 +349,8 @@ public class Chassis extends SubsystemBase {
 	 * based upon the X and Y-axis world linear acceleration values.
 	 * If the sum of the absolute values of the X and Y axis exceed
 	 * a "motion threshold", the motion state is indicated.
-	 *<p>
+	 * <p>
+	 *
 	 * @return Returns true if the sensor is currently detecting motion.
 	 */
 	public boolean isMoving() {
@@ -347,11 +361,12 @@ public class Chassis extends SubsystemBase {
 	 * Indicates if the sensor is currently detecting yaw rotation,
 	 * based upon whether the change in yaw over the last second
 	 * exceeds the "Rotation Threshold."
-	 *<p>
+	 * <p>
 	 * Yaw Rotation can occur either when the sensor is rotating, or
 	 * when the sensor is not rotating AND the current gyro calibration
 	 * is insufficiently calibrated to yield the standard yaw drift rate.
-	 *<p>
+	 * <p>
+	 *
 	 * @return Returns true if the sensor is currently detecting rotation.
 	 */
 	public boolean isRotating() {
@@ -361,9 +376,11 @@ public class Chassis extends SubsystemBase {
 	/**
 	 * Returns the velocity (in meters/sec) of the X axis [Experimental].
 	 *
-	 * NOTE:  This feature is experimental.  Velocity measures rely on integration
-	 * of acceleration values from MEMS accelerometers which yield "noisy" values.  The
+	 * NOTE: This feature is experimental. Velocity measures rely on integration
+	 * of acceleration values from MEMS accelerometers which yield "noisy" values.
+	 * The
 	 * resulting velocities are not known to be very accurate.
+	 *
 	 * @return Current Velocity (in meters/squared).
 	 */
 	public float getVelocityX() {
@@ -373,9 +390,11 @@ public class Chassis extends SubsystemBase {
 	/**
 	 * Returns the velocity (in meters/sec) of the Y axis [Experimental].
 	 *
-	 * NOTE:  This feature is experimental.  Velocity measures rely on integration
-	 * of acceleration values from MEMS accelerometers which yield "noisy" values.  The
+	 * NOTE: This feature is experimental. Velocity measures rely on integration
+	 * of acceleration values from MEMS accelerometers which yield "noisy" values.
+	 * The
 	 * resulting velocities are not known to be very accurate.
+	 *
 	 * @return Current Velocity (in meters/squared).
 	 */
 	public float getVelocityY() {
@@ -385,9 +404,11 @@ public class Chassis extends SubsystemBase {
 	/**
 	 * Returns the velocity (in meters/sec) of the Z axis [Experimental].
 	 *
-	 * NOTE:  This feature is experimental.  Velocity measures rely on integration
-	 * of acceleration values from MEMS accelerometers which yield "noisy" values.  The
+	 * NOTE: This feature is experimental. Velocity measures rely on integration
+	 * of acceleration values from MEMS accelerometers which yield "noisy" values.
+	 * The
 	 * resulting velocities are not known to be very accurate.
+	 *
 	 * @return Current Velocity (in meters/squared).
 	 */
 	public float getVelocityZ() {
@@ -398,10 +419,14 @@ public class Chassis extends SubsystemBase {
 	 * Returns the displacement (in meters) of the X axis since resetDisplacement()
 	 * was last invoked [Experimental].
 	 *
-	 * NOTE:  This feature is experimental.  Displacement measures rely on double-integration
-	 * of acceleration values from MEMS accelerometers which yield "noisy" values.  The
-	 * resulting displacement are not known to be very accurate, and the amount of error
+	 * NOTE: This feature is experimental. Displacement measures rely on
+	 * double-integration
+	 * of acceleration values from MEMS accelerometers which yield "noisy" values.
+	 * The
+	 * resulting displacement are not known to be very accurate, and the amount of
+	 * error
 	 * increases quickly as time progresses.
+	 *
 	 * @return Displacement since last reset (in meters).
 	 */
 	public float getDisplacementX() {
@@ -412,10 +437,14 @@ public class Chassis extends SubsystemBase {
 	 * Returns the displacement (in meters) of the Y axis since resetDisplacement()
 	 * was last invoked [Experimental].
 	 *
-	 * NOTE:  This feature is experimental.  Displacement measures rely on double-integration
-	 * of acceleration values from MEMS accelerometers which yield "noisy" values.  The
-	 * resulting displacement are not known to be very accurate, and the amount of error
+	 * NOTE: This feature is experimental. Displacement measures rely on
+	 * double-integration
+	 * of acceleration values from MEMS accelerometers which yield "noisy" values.
+	 * The
+	 * resulting displacement are not known to be very accurate, and the amount of
+	 * error
 	 * increases quickly as time progresses.
+	 *
 	 * @return Displacement since last reset (in meters).
 	 */
 	public float getDisplacementY() {
@@ -426,10 +455,14 @@ public class Chassis extends SubsystemBase {
 	 * Returns the displacement (in meters) of the Z axis since resetDisplacement()
 	 * was last invoked [Experimental].
 	 *
-	 * NOTE:  This feature is experimental.  Displacement measures rely on double-integration
-	 * of acceleration values from MEMS accelerometers which yield "noisy" values.  The
-	 * resulting displacement are not known to be very accurate, and the amount of error
+	 * NOTE: This feature is experimental. Displacement measures rely on
+	 * double-integration
+	 * of acceleration values from MEMS accelerometers which yield "noisy" values.
+	 * The
+	 * resulting displacement are not known to be very accurate, and the amount of
+	 * error
 	 * increases quickly as time progresses.
+	 *
 	 * @return Displacement since last reset (in meters).
 	 */
 	public float getDisplacementZ() {
@@ -438,7 +471,7 @@ public class Chassis extends SubsystemBase {
 
 	/**
 	 * Reset the Yaw gyro.
-	 *<p>
+	 * <p>
 	 * Resets the Gyro Z (Yaw) axis to a heading of zero. This can be used if
 	 * there is significant drift in the gyro and it needs to be recalibrated
 	 * after it has been running.
@@ -450,12 +483,12 @@ public class Chassis extends SubsystemBase {
 	/**
 	 * Sets the user-specified yaw offset to the current
 	 * yaw value reported by the sensor.
-	 *<p>
+	 * <p>
 	 * This user-specified yaw offset is automatically
 	 * subtracted from subsequent yaw values reported by
 	 * the getYaw() method.
 	 *
-	 * NOTE:  This method has no effect if the sensor is
+	 * NOTE: This method has no effect if the sensor is
 	 * currently calibrating, since resetting the yaw will
 	 * interfere with the calibration process.
 	 */

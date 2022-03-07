@@ -13,6 +13,7 @@ import com.fireteam322.frc.robot.subsystems.Chassis;
 public class ResetGyro extends CommandBase {
   private final Chassis m_chassis;
   private boolean m_isFinished;
+
   /**
    * Creates a new ResetGyro.
    */

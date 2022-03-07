@@ -12,23 +12,23 @@ import edu.wpi.first.wpilibj2.command.CommandBase;
 import com.fireteam322.frc.robot.Constants;
 import com.fireteam322.frc.robot.subsystems.RobotCamera;
 
-public class RunRearCamera extends CommandBase {
-	private final RobotCamera m_rearCamera;
+public class RunFrontCamera extends CommandBase {
+	private final RobotCamera m_frontCamera;
 
 	/**
-	 * Creates a new RunRearCamera.
+	 * Creates a new RunFrontCamera.
 	 */
-	public RunRearCamera(RobotCamera rearCamera) {
-		m_rearCamera = rearCamera;
+	public RunFrontCamera(RobotCamera frontCamera) {
+		m_frontCamera = frontCamera;
 		// Use addRequirements() here to declare subsystem dependencies.
-		addRequirements(m_rearCamera);
+		addRequirements(m_frontCamera);
 	}
 
 	// Called when the command is initially scheduled.
 	@Override
 	public void initialize() {
-		m_rearCamera.setResolution(Constants.VIDEO_WIDTH, Constants.VIDEO_HEIGHT);
-		m_rearCamera.setFPS(Constants.VIDEO_FPS);
+		m_frontCamera.setResolution(Constants.VIDEO_WIDTH, Constants.VIDEO_HEIGHT);
+		m_frontCamera.setFPS(Constants.VIDEO_FPS);
 	}
 
 	// Called every time the scheduler runs while the command is scheduled.
