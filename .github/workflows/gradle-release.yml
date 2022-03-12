@@ -9,9 +9,9 @@ name: Robot Build And Release 322 2021
 
 on:
   push:
-    branches: [ release/v*, master ]
+    branches: [ release/v*]
   release:
-    branches: [ release/v* , master]
+    branches: [ release/v*]
   workflow_dispatch: 
 jobs:
   build:
@@ -43,5 +43,5 @@ jobs:
       with:
         repo_token: ${{ secrets.GITHUB_TOKEN }}
         title: FRC Team #322 Robot 2022
-        automatic_release_tag: ${{env.REL_VERSION}}.$GITHUB_RUN_ID
+        automatic_release_tag: ${{env.REL_VERSION}}."$env:GITHUB_RUN_ID"
         prerelease: false
