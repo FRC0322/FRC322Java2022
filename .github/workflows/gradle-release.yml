@@ -9,9 +9,9 @@ name: Robot Build And Release 322 2021
 
 on:
   push:
-    branches: [ release/v*, main ]
+    branches: [ release/v*, master ]
   release:
-    branches: [ release/v* , main]
+    branches: [ release/v* , master]
   workflow_dispatch: 
 jobs:
   build:
