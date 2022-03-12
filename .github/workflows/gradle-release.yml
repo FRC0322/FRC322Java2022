@@ -9,9 +9,9 @@ name: Robot Build And Release 322 2021
 
 on:
   push:
-    branches: [ release/v* ]
+    branches: [ release/v*, main ]
   release:
-    branches: [ release/v* ]
+    branches: [ release/v* , main]
   workflow_dispatch: 
 jobs:
   build:
@@ -37,11 +37,11 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - name: "Genrate Release Tag"
-      run: echo "REL_VERSION="$(date +'%Y.%M.%d.%s') >> $GITHUB_ENV
+      run: echo "REL_VERSION="$(date +'%Y.%M.%d') >> $GITHUB_ENV
     - name: Automatic Release With Assets
       uses: marvinpinto/action-automatic-releases@v1.2.1
       with:
         repo_token: ${{ secrets.GITHUB_TOKEN }}
         title: FRC Team #322 Robot 2022
-        automatic_release_tag: ${{env.REL_VERSION}}
+        automatic_release_tag: ${{env.REL_VERSION}}.${{env.GITHUB_RUN_ID}}
         prerelease: false
