@@ -24,6 +24,10 @@ jobs:
         distribution: 'adopt'
     - name: Set Permissions
       run: ls -lrt && chmod 777 ./*
+    - name: Clean Groovy 
+      uses: gradle/gradle-build-action@4137be6a8bf7d7133955359dbd952c0ca73b1021
+      with:
+        arguments: :spotlessApply  
     - name: Build with Gradle
       uses: gradle/gradle-build-action@4137be6a8bf7d7133955359dbd952c0ca73b1021
       with:
