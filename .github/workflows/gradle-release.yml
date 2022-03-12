@@ -37,7 +37,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - name: "Genrate Release Tag"
-      run: echo "REL_VERSION="$(date +'%Y.%M.%d')."$env:GITHUB_RUN_ID" >> $GITHUB_ENV
+      run: echo "REL_VERSION="$(date +'%Y.%M.%d')."$GITHUB_RUN_ID" >> $GITHUB_ENV
     - name: Automatic Release With Assets
       uses: marvinpinto/action-automatic-releases@v1.2.1
       with:
