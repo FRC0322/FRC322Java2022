@@ -8,32 +8,31 @@
 package com.fireteam322.frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
+import com.fireteam322.frc.robot.subsystems.LimelightCamera;
+import com.fireteam322.frc.robot.utilities.Limelight.LightMode;
 
-import com.fireteam322.frc.robot.Constants;
-import com.fireteam322.frc.robot.subsystems.RobotCamera;
-
-public class RunFrontCamera extends CommandBase {
-	private final RobotCamera m_frontCamera;
-
+public class LimelightLightModeControl extends CommandBase {
+	private final LimelightCamera m_limelightCamera;
+	private final LightMode m_lightMode;
 	/**
-	 * Creates a new RunFrontCamera.
+	 * Creates a new LimelightLightModeControl.
 	 */
-	public RunFrontCamera(RobotCamera frontCamera) {
-		m_frontCamera = frontCamera;
+	public LimelightLightModeControl(LimelightCamera limelightCamera, LightMode lightMode) {
+		m_limelightCamera = limelightCamera;
+		m_lightMode = lightMode;
 		// Use addRequirements() here to declare subsystem dependencies.
-		addRequirements(m_frontCamera);
+		addRequirements(m_limelightCamera);
 	}
 
 	// Called when the command is initially scheduled.
 	@Override
 	public void initialize() {
-		m_frontCamera.setResolution(Constants.VIDEO_WIDTH, Constants.VIDEO_HEIGHT);
-		m_frontCamera.setFPS(Constants.VIDEO_FPS);
 	}
 
 	// Called every time the scheduler runs while the command is scheduled.
 	@Override
 	public void execute() {
+		m_limelightCamera.getLimelight().setLedMode(m_lightMode);
 	}
 
 	// Called once the command ends or is interrupted.

@@ -45,16 +45,17 @@ public final class Constants {
 	public static final int RIGHT_SHOOTER_MOTOR = 8;
 
 	// RobotContainer.java
+	public static final boolean CLASSIC_MODE = false;
 	public static final int DRIVE_STICK = 0,
 			MANIPULATOR_STICK = 1,
 			DEBUGGER_STICK = 2,
 			LEFT_DRIVE_STICK = 3,
 			RIGHT_DRIVE_STICK = 4,
 			CAMERASERVER_FEEDS = 2,
-			FRONT_CAMERA_CHANNEL = 0,
-			REAR_CAMERA_CHANNEL = 1,
+			REAR_CAMERA_CHANNEL = 0,
 			CLIMB_JOYSTICK_BUTTON = 3,
-			CLIMB_REVERSE_JOYSTICK_BUTTON = 4;
+			CLIMB_REVERSE_JOYSTICK_BUTTON = 4,
+			VISION_MODE_BUTTON = 5;
 	public static final double FEEDER_SPEED = 0.75,
 			FEEDER_REVERSE_SPEED = -(0.5),
 			INTAKE_SPEED = 1.0,
