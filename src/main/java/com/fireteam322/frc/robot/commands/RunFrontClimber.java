@@ -4,9 +4,8 @@
 
 package com.fireteam322.frc.robot.commands;
 
-import edu.wpi.first.wpilibj2.command.CommandBase;
-
 import com.fireteam322.frc.robot.subsystems.FrontClimber;
+import edu.wpi.first.wpilibj2.command.CommandBase;
 
 public class RunFrontClimber extends CommandBase {
   private final FrontClimber m_climber;
@@ -22,8 +21,7 @@ public class RunFrontClimber extends CommandBase {
 
   // Called when the command is initially scheduled.
   @Override
-  public void initialize() {
-  }
+  public void initialize() {}
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override

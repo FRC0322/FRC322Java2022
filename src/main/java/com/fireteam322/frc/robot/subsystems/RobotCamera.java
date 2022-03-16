@@ -12,35 +12,33 @@ import edu.wpi.first.cscore.UsbCamera;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 public class RobotCamera extends SubsystemBase {
-	private static UsbCamera cameraServer;
+  private static UsbCamera cameraServer;
 
-	/**
-	 * Creates a new FrontCamera.
-	 */
-	public RobotCamera(String name, int port) {
-		// Setup Camera
-		cameraServer = CameraServer.startAutomaticCapture(name, port);
-	}
+  /** Creates a new FrontCamera. */
+  public RobotCamera(String name, int port) {
+    // Setup Camera
+    cameraServer = CameraServer.startAutomaticCapture(name, port);
+  }
 
-	public void setResolution(int width, int height) {
-		cameraServer.setResolution(width, height);
-	}
+  public void setResolution(int width, int height) {
+    cameraServer.setResolution(width, height);
+  }
 
-	/**
-	 * This method returns the Limelight HttpCamera feed.
-	 *
-	 * @return Returns a UsbCamera feed.
-	 */
-	public UsbCamera getCameraFeed() {
-		return cameraServer;
-	}
+  /**
+   * This method returns the Limelight HttpCamera feed.
+   *
+   * @return Returns a UsbCamera feed.
+   */
+  public UsbCamera getCameraFeed() {
+    return cameraServer;
+  }
 
-	public void setFPS(int fps) {
-		cameraServer.setFPS(fps);
-	}
+  public void setFPS(int fps) {
+    cameraServer.setFPS(fps);
+  }
 
-	@Override
-	public void periodic() {
-		// This method will be called once per scheduler run
-	}
+  @Override
+  public void periodic() {
+    // This method will be called once per scheduler run
+  }
 }

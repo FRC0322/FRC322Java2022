@@ -4,12 +4,10 @@
 
 package com.fireteam322.frc.robot.subsystems;
 
-import edu.wpi.first.wpilibj2.command.SubsystemBase;
-
 import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonFX;
-
 import com.fireteam322.frc.robot.Constants;
+import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 public class FrontClimber extends SubsystemBase {
   private final WPI_TalonFX m_climberMotor = new WPI_TalonFX(Constants.FRONT_CLIMBER_MOTOR);

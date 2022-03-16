@@ -9,39 +9,36 @@ package com.fireteam322.frc.robot.subsystems;
 
 import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
-
-import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import com.fireteam322.frc.robot.Constants;
+import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 public class Intake extends SubsystemBase {
-	// The Intake is our ground level ball intake.
-	private final WPI_TalonSRX m_intakeMotor = new WPI_TalonSRX(Constants.INTAKE_MOTOR);
+  // The Intake is our ground level ball intake.
+  private final WPI_TalonSRX m_intakeMotor = new WPI_TalonSRX(Constants.INTAKE_MOTOR);
 
-	/**
-	 * Creates a new Intake.
-	 */
-	public Intake() {
-		super();
+  /** Creates a new Intake. */
+  public Intake() {
+    super();
 
-		// Set the inversion of the intake motor.
-		m_intakeMotor.setInverted(false);
+    // Set the inversion of the intake motor.
+    m_intakeMotor.setInverted(false);
 
-		// Set the intake motor to Coast.
-		m_intakeMotor.setNeutralMode(NeutralMode.Coast);
-	}
+    // Set the intake motor to Coast.
+    m_intakeMotor.setNeutralMode(NeutralMode.Coast);
+  }
 
-	// This method stops the intake.
-	public void stop() {
-		m_intakeMotor.stopMotor();
-	}
+  // This method stops the intake.
+  public void stop() {
+    m_intakeMotor.stopMotor();
+  }
 
-	// This method runs the intake.
-	public void run(double speed) {
-		m_intakeMotor.set(speed);
-	}
+  // This method runs the intake.
+  public void run(double speed) {
+    m_intakeMotor.set(speed);
+  }
 
-	@Override
-	public void periodic() {
-		// This method will be called once per scheduler run
-	}
+  @Override
+  public void periodic() {
+    // This method will be called once per scheduler run
+  }
 }
