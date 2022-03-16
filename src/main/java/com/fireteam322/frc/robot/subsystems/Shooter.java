@@ -18,8 +18,10 @@ public class Shooter extends SubsystemBase {
   // mechanism.
   private final WPI_TalonSRX m_leftShooterMotor = new WPI_TalonSRX(Constants.LEFT_SHOOTER_MOTOR);
   private final WPI_TalonSRX m_rightShooterMotor = new WPI_TalonSRX(Constants.RIGHT_SHOOTER_MOTOR);
+  private final WPI_TalonSRX m_topShooterMotor = new WPI_TalonSRX(Constants.TOP_SHOOTER_MOTOR);
+
   private final MotorControllerGroup m_shooterMotors =
-      new MotorControllerGroup(m_leftShooterMotor, m_rightShooterMotor);
+      new MotorControllerGroup(m_leftShooterMotor, m_rightShooterMotor, m_topShooterMotor);
 
   /** Creates a new Shooter. */
   public Shooter() {
@@ -27,11 +29,13 @@ public class Shooter extends SubsystemBase {
     // Set the inversion on the shooter motors.
     m_leftShooterMotor.setInverted(false);
     m_rightShooterMotor.setInverted(false);
+    m_topShooterMotor.setInverted(true);
     m_shooterMotors.setInverted(true);
 
     // Set the shooter motors to Coast so they don't stop balls moving through them.
     m_leftShooterMotor.setNeutralMode(NeutralMode.Coast);
     m_rightShooterMotor.setNeutralMode(NeutralMode.Coast);
+    m_topShooterMotor.setNeutralMode(NeutralMode.Coast);
   }
 
   public void stop() {
