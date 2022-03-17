@@ -31,7 +31,9 @@ public class RobotContainer {
   private final FrontClimber m_frontClimber = new FrontClimber();
   private final Feeder m_feeder = new Feeder();
   private final Intake m_intake = new Intake();
-  private final Shooter m_shooter = new Shooter();
+  // private final Shooter m_shooter = new Shooter();
+  private final TopShooter t_shooter = new TopShooter();
+  private final BottomShooter b_shooter = new BottomShooter();
 
   private final F310Controller m_driveStick = new F310Controller(Constants.DRIVE_STICK);
   private final F310Controller m_manipulatorStick = new F310Controller(Constants.MANIPULATOR_STICK);
@@ -50,14 +52,25 @@ public class RobotContainer {
       new JoystickButton(m_driveStick, F310Controller.Button.kY.getValue());
   private final JoystickButton m_frontClimbReverseButton =
       new JoystickButton(m_driveStick, F310Controller.Button.kB.getValue());
+
+  // Feeder Buttons
   private final JoystickButton m_feederButton =
       new JoystickButton(m_manipulatorStick, F310Controller.Button.kA.getValue());
+
   private final JoystickButton m_feederReverseButton =
       new JoystickButton(m_manipulatorStick, F310Controller.Button.kB.getValue());
+
+  // Bottom Shooter
   private final JoystickButton m_shooterButton =
       new JoystickButton(m_manipulatorStick, F310Controller.Button.kX.getValue());
+
   private final JoystickButton m_shooterReverseButton =
       new JoystickButton(m_manipulatorStick, F310Controller.Button.kY.getValue());
+
+  // Top Shooter
+  private final JoystickButton m_topShooterButton =
+      new JoystickButton(m_driveStick, F310Controller.Button.kBumperLeft.getValue());
+
   private final JoystickButton m_intakeReverseButton =
       new JoystickButton(m_manipulatorStick, F310Controller.Button.kBumperLeft.getValue());
   private final JoystickButton m_intakeButton =
@@ -80,12 +93,17 @@ public class RobotContainer {
 
     m_intake.setDefaultCommand(new RunIntake(m_intake, () -> -m_manipulatorStick.getRightY()));
 
-    m_shooter.setDefaultCommand(
-        new RunShooter(
-            m_shooter,
-            () ->
-                (m_manipulatorStick.getRightTriggerAxis()
-                    - m_manipulatorStick.getLeftTriggerAxis())));
+    /// t_shooter.getDefaultCommand(new RunTopShooter(t_shooter,m_manipulatorStick.getLeftX()));
+
+    // b_shooter.getDefaultCommand(new
+    // RunBottomShooter(b_shooter,m_manipulatorStick.getLeftTriggerAxis()));*/
+
+    /* m_shooter.setDefaultCommand(
+    new RunShooter(
+        m_shooter,
+        () ->
+            (m_manipulatorStick.getRightTriggerAxis()
+                - m_manipulatorStick.getLeftTriggerAxis())));*/
 
     m_frontClimber.setDefaultCommand(
         new RunFrontClimber(m_frontClimber, m_manipulatorStick.getLeftX()));
@@ -115,9 +133,18 @@ public class RobotContainer {
     m_feederReverseButton.whileActiveOnce(
         new RunFeeder(m_feeder, () -> Constants.FEEDER_REVERSE_SPEED), true);
 
-    m_shooterButton.whileActiveOnce(new RunShooter(m_shooter, () -> Constants.SHOOTER_SPEED), true);
+    /*m_shooterButton.whileActiveOnce(new RunShooter(m_shooter, () -> Constants.SHOOTER_SPEED), true);*/
+
+    // Bottom Shooter
+    m_shooterButton.whileActiveOnce(new RunBottomShooter(b_shooter, Constants.SHOOTER_SPEED), true);
     m_shooterReverseButton.whileActiveOnce(
-        new RunShooter(m_shooter, () -> Constants.SHOOTER_REVERSE_SPEED), true);
+        new RunBottomShooter(b_shooter, Constants.SHOOTER_REVERSE_SPEED), true);
+
+    // Top Shooter
+    m_topShooterButton.whileActiveOnce(new RunTopShooter(t_shooter, Constants.SHOOTER_SPEED), true);
+
+    /* m_shooterReverseButton.whileActiveOnce(
+    new RunShooter(m_shooter, () -> Constants.SHOOTER_REVERSE_SPEED), true);*/
 
     m_intakeButton.whileActiveOnce(new RunIntake(m_intake, () -> Constants.INTAKE_SPEED));
     m_intakeReverseButton.whileActiveOnce(
