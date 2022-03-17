@@ -18,7 +18,7 @@ public class TopShooter extends SubsystemBase {
     m_rightShooterMotor.setInverted(false);
 
     // Set the shooter motors to Coast so they don't stop balls moving through them.
-    m_rightShooterMotor.setNeutralMode(NeutralMode.Coast);
+    m_rightShooterMotor.setNeutralMode(NeutralMode.Brake);
   }
 
   public void stop() {
