@@ -39,7 +39,6 @@ public final class Constants {
   // Shooter.java
   public static final int LEFT_SHOOTER_MOTOR = 7;
   public static final int RIGHT_SHOOTER_MOTOR = 8;
-  public static final int TOP_SHOOTER_MOTOR = 9;
 
   // RobotContainer.java
   public static final int DRIVE_STICK = 0,

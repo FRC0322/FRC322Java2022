@@ -3,12 +3,15 @@
     "types": {
       "/FMSInfo": "FMSInfo",
       "/LiveWindow/AddressableLEDs": "Subsystem",
+      "/LiveWindow/BottomShooter": "Subsystem",
+      "/LiveWindow/BottomShooter/Bottom Shooter": "Subsystem",
       "/LiveWindow/Chassis": "Subsystem",
       "/LiveWindow/Feeder": "Subsystem",
       "/LiveWindow/FrontClimber": "Subsystem",
       "/LiveWindow/Intake": "Subsystem",
       "/LiveWindow/RearClimber": "Subsystem",
       "/LiveWindow/Shooter": "Subsystem",
+      "/LiveWindow/TopShooter/Top Shooter": "Subsystem",
       "/LiveWindow/Ungrouped/DifferentialDrive[1]": "DifferentialDrive",
       "/LiveWindow/Ungrouped/MotorControllerGroup[3]": "Motor Controller",
       "/LiveWindow/Ungrouped/MotorControllerGroup[4]": "Motor Controller",
@@ -16,6 +19,8 @@
       "/LiveWindow/Ungrouped/Talon FX [9]": "Motor Controller",
       "/LiveWindow/Ungrouped/Talon SRX [5]": "Motor Controller",
       "/LiveWindow/Ungrouped/Talon SRX [6]": "Motor Controller",
+      "/LiveWindow/Ungrouped/Talon SRX [7]": "Motor Controller",
+      "/LiveWindow/Ungrouped/Talon SRX [8]": "Motor Controller",
       "/LiveWindow/Ungrouped/navX-Sensor[4]": "Gyro"
     }
   },
@@ -24,7 +29,40 @@
       "open": true
     },
     "LiveWindow": {
-      "Chassis": {
+      "BottomShooter": {
+        "Bottom Shooter": {
+          "open": true
+        },
+        "open": true
+      },
+      "TopShooter": {
+        "Top Shooter": {
+          "open": true
+        },
+        "open": true
+      },
+      "Ungrouped": {
+        "DifferentialDrive[1]": {
+          "open": true
+        },
+        "MotorControllerGroup[3]": {
+          "open": true
+        },
+        "Talon FX [9]": {
+          "open": true
+        },
+        "Talon SRX [5]": {
+          "open": true
+        },
+        "Talon SRX [6]": {
+          "open": true
+        },
+        "Talon SRX [7]": {
+          "open": true
+        },
+        "Talon SRX [8]": {
+          "open": true
+        },
         "open": true
       },
       "open": true

@@ -11,6 +11,7 @@ public class RunTopShooter extends CommandBase {
   public RunTopShooter(TopShooter shooter, double speed) {
     m_shooter = shooter;
     m_speed = speed;
+    m_shooter.setName("Top Shooter");
     // Use addRequirements() here to declare subsystem dependencies.
     addRequirements(m_shooter);
   }

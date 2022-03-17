@@ -12,6 +12,7 @@ public class RunBottomShooter extends CommandBase {
     m_shooter = shooter;
     m_speed = speed;
     // Use addRequirements() here to declare subsystem dependencies.
+    m_shooter.setName("Bottom Shooter");
     addRequirements(m_shooter);
   }
 
