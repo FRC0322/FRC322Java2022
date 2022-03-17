@@ -93,7 +93,6 @@ public class RobotContainer {
 
     m_intake.setDefaultCommand(new RunIntake(m_intake, () -> -m_manipulatorStick.getRightY()));
 
-
     /// t_shooter.getDefaultCommand(new RunTopShooter(t_shooter,m_manipulatorStick.getLeftX()));
 
     // b_shooter.getDefaultCommand(new
@@ -142,9 +141,9 @@ public class RobotContainer {
         new RunTopShooter(t_shooter, Constants.SHOOTER_REVERSE_SPEED), true);
 
     // Top Shooter
-    m_topShooterButton.whileActiveOnce(new RunBottomShooter(b_shooter, Constants.SHOOTER_SPEED), true);
-   // m_topShooterButton.whenReleased(new RunBottomShooter(b_shooter, 0), true);
-
+    m_topShooterButton.whileActiveOnce(
+        new RunBottomShooter(b_shooter, Constants.SHOOTER_SPEED), true);
+    // m_topShooterButton.whenReleased(new RunBottomShooter(b_shooter, 0), true);
 
     /* m_shooterReverseButton.whileActiveOnce(
     new RunShooter(m_shooter, () -> Constants.SHOOTER_REVERSE_SPEED), true);*/
