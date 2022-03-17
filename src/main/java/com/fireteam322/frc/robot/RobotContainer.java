@@ -33,7 +33,7 @@ public class RobotContainer {
 	private final Chassis m_chassis = new Chassis();
 	private final LimelightCamera m_limelightCamera = new LimelightCamera();
 	private final RobotCamera m_rearCamera = new RobotCamera("Rear Camera", Constants.REAR_CAMERA_CHANNEL);
-	// private final RobotPower m_robotPower = new RobotPower();
+	private final RobotPower m_robotPower = new RobotPower();
 	private final RearClimber m_rearClimber = new RearClimber();
 	private final FrontClimber m_frontClimber = new FrontClimber();
 	private final Feeder m_feeder = new Feeder();
@@ -129,8 +129,8 @@ public class RobotContainer {
 
 		m_rearCamera.setDefaultCommand(new RunRearCamera(m_rearCamera));
 
-		// We're not using the RobotPower Subsystem for anything.
-		// m_robotPower.setDefaultCommand(new StartRobotPower(m_robotPower));
+		if (Constants.ROBOT_POWER)
+			m_robotPower.setDefaultCommand(new StartRobotPower(m_robotPower));
 
 		// Setup the SendableChooser
 		chooserSetup();
@@ -147,21 +147,27 @@ public class RobotContainer {
 	 * {@link edu.wpi.first.wpilibj2.command.button.JoystickButton}.
 	 */
 	private void configureButtonBindings() {
-	if (Constants.CLASSIC_MODE) {
-		m_visionModeButtonJoystick.whileActiveOnce(new LimelightCameraModeControl(m_limelightCamera, CameraMode.kvision));
-		m_driverModeButtonJoystick.whileActiveOnce(new LimelightCameraModeControl(m_limelightCamera, CameraMode.kdriver));
-		m_rearClimbButtonJoystick.whileActiveOnce(new RunRearClimber(m_rearClimber, Constants.CLIMBER_SPEED));
-		m_rearClimbReverseButtonJoystick.whileActiveOnce(new RunRearClimber(m_rearClimber, Constants.CLIMBER_REVERSE_SPEED));
-		m_frontClimbButtonJoystick.whileActiveOnce(new RunFrontClimber(m_frontClimber, Constants.CLIMBER_SPEED));
-		m_frontClimbReverseButtonJoystick.whileActiveOnce(new RunFrontClimber(m_frontClimber, Constants.CLIMBER_REVERSE_SPEED));
-	} else {
-		m_visionModeButton.whileActiveOnce(new LimelightCameraModeControl(m_limelightCamera, CameraMode.kvision));
-		m_driverModeButton.whileActiveOnce(new LimelightCameraModeControl(m_limelightCamera, CameraMode.kdriver));
-		m_rearClimbButton.whileActiveOnce(new RunRearClimber(m_rearClimber, Constants.CLIMBER_SPEED));
-		m_rearClimbReverseButton.whileActiveOnce(new RunRearClimber(m_rearClimber, Constants.CLIMBER_REVERSE_SPEED));
-		m_frontClimbButton.whileActiveOnce(new RunFrontClimber(m_frontClimber, Constants.CLIMBER_SPEED));
-		m_frontClimbReverseButton.whileActiveOnce(new RunFrontClimber(m_frontClimber, Constants.CLIMBER_REVERSE_SPEED));
-	}
+		if (Constants.CLASSIC_MODE) {
+			m_visionModeButtonJoystick
+					.whileActiveOnce(new LimelightCameraModeControl(m_limelightCamera, CameraMode.kvision));
+			m_driverModeButtonJoystick
+					.whileActiveOnce(new LimelightCameraModeControl(m_limelightCamera, CameraMode.kdriver));
+			m_rearClimbButtonJoystick.whileActiveOnce(new RunRearClimber(m_rearClimber, Constants.CLIMBER_SPEED));
+			m_rearClimbReverseButtonJoystick
+					.whileActiveOnce(new RunRearClimber(m_rearClimber, Constants.CLIMBER_REVERSE_SPEED));
+			m_frontClimbButtonJoystick.whileActiveOnce(new RunFrontClimber(m_frontClimber, Constants.CLIMBER_SPEED));
+			m_frontClimbReverseButtonJoystick
+					.whileActiveOnce(new RunFrontClimber(m_frontClimber, Constants.CLIMBER_REVERSE_SPEED));
+		} else {
+			m_visionModeButton.whileActiveOnce(new LimelightCameraModeControl(m_limelightCamera, CameraMode.kvision));
+			m_driverModeButton.whileActiveOnce(new LimelightCameraModeControl(m_limelightCamera, CameraMode.kdriver));
+			m_rearClimbButton.whileActiveOnce(new RunRearClimber(m_rearClimber, Constants.CLIMBER_SPEED));
+			m_rearClimbReverseButton
+					.whileActiveOnce(new RunRearClimber(m_rearClimber, Constants.CLIMBER_REVERSE_SPEED));
+			m_frontClimbButton.whileActiveOnce(new RunFrontClimber(m_frontClimber, Constants.CLIMBER_SPEED));
+			m_frontClimbReverseButton
+					.whileActiveOnce(new RunFrontClimber(m_frontClimber, Constants.CLIMBER_REVERSE_SPEED));
+		}
 		m_feederButton.whileActiveOnce(new RunFeeder(m_feeder, () -> Constants.FEEDER_SPEED), true);
 		m_feederReverseButton.whileActiveOnce(new RunFeeder(m_feeder, () -> Constants.FEEDER_REVERSE_SPEED), true);
 

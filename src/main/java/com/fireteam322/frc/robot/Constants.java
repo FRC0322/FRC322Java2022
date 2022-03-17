@@ -28,10 +28,10 @@ public final class Constants {
 			DEFAULT_BLINK_RATE = 2.5;
 
 	// Chassis.java
-	public static final int DRIVE_LEFTFRONT = 1,
-			DRIVE_LEFTREAR = 2,
-			DRIVE_RIGHTFRONT = 3,
-			DRIVE_RIGHTREAR = 4,
+	public static final int DRIVE_LEFTFRONT = 3,
+			DRIVE_LEFTREAR = 4,
+			DRIVE_RIGHTFRONT = 1,
+			DRIVE_RIGHTREAR = 2,
 			TICKS_PER_INCH = 512;
 
 	// Intake.jave
@@ -45,7 +45,8 @@ public final class Constants {
 	public static final int RIGHT_SHOOTER_MOTOR = 8;
 
 	// RobotContainer.java
-	public static final boolean CLASSIC_MODE = false;
+	public static final boolean CLASSIC_MODE = false,
+			ROBOT_POWER = false;
 	public static final int DRIVE_STICK = 0,
 			MANIPULATOR_STICK = 1,
 			DEBUGGER_STICK = 2,
@@ -74,8 +75,8 @@ public final class Constants {
 
 	// RunFrontCamera.java & RunRearCamera.java
 	public static final int VIDEO_WIDTH = 320,
-							VIDEO_HEIGHT = 180,
-							VIDEO_FPS = 15;
+			VIDEO_HEIGHT = 180,
+			VIDEO_FPS = 15;
 
 	// Robot Power
 	public static final int PDP_CHANNEL = 0;
