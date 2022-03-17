@@ -63,8 +63,8 @@ public final class Constants {
 			INTAKE_REVERSE_SPEED = -(0.75),
 			SHOOTER_SPEED = 1.0,
 			SHOOTER_REVERSE_SPEED = -(0.5),
-			CLIMBER_SPEED = 1.0,
-			CLIMBER_REVERSE_SPEED = -(1.0);
+			CLIMBER_SPEED = 0.18,
+			CLIMBER_REVERSE_SPEED = -(0.18);
 
 	// FrontClimber.java
 	public static final int FRONT_CLIMBER_MOTOR = 9;
