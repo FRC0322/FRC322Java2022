@@ -136,14 +136,16 @@ public class RobotContainer {
     /*m_shooterButton.whileActiveOnce(new RunShooter(m_shooter, () -> Constants.SHOOTER_SPEED), true);*/
 
     // Bottom Shooter
-    m_shooterButton.whileActiveOnce(new RunTopShooter(t_shooter, Constants.SHOOTER_SPEED), true);
-    m_shooterReverseButton.whileActiveOnce(
-        new RunTopShooter(t_shooter, Constants.SHOOTER_REVERSE_SPEED), true);
+    m_shooterButton.whileHeld(new RunBottomShooter(b_shooter, Constants.SHOOTER_SPEED), true);
+    m_shooterButton.whenReleased(new RunBottomShooter(b_shooter, 0), true);
+    m_shooterReverseButton.whileHeld(
+        new RunBottomShooter(b_shooter, Constants.SHOOTER_REVERSE_SPEED), true);
+    m_shooterReverseButton.whenReleased(new RunBottomShooter(b_shooter, 0), true);
 
-    // Top Shooter
-    m_topShooterButton.whileActiveOnce(
-        new RunBottomShooter(b_shooter, Constants.SHOOTER_SPEED), true);
-    // m_topShooterButton.whenReleased(new RunBottomShooter(b_shooter, 0), true);
+     // Top Shooter
+     m_topShooterButton.whileHeld(new RunTopShooter(t_shooter, Constants.SHOOTER_SPEED), true);
+     m_topShooterButton.whenReleased(new RunTopShooter(t_shooter, 0), true);
+
 
     /* m_shooterReverseButton.whileActiveOnce(
     new RunShooter(m_shooter, () -> Constants.SHOOTER_REVERSE_SPEED), true);*/
