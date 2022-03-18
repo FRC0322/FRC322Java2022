@@ -48,8 +48,8 @@ public class Chassis extends SubsystemBase {
 	public Chassis() {
 		super();
 		// Invert the right side motors due to the way they're mounted.
-		m_leftMotors.setInverted(true);
-		m_rightMotors.setInverted(false);
+		m_leftMotors.setInverted(false);
+		m_rightMotors.setInverted(true);
 
 		// Change the motors to "coast" mode
 		brake(false);
