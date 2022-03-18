@@ -1,0 +1,21 @@
+Drive Stick = USB 0
+Manipulator Stick = USB 1
+Left Drive Joystick = USB 2
+Right Drive Joystick = USB 3
+
+Right Front Drive = CAN ID 1
+Right Rear Drive = CAN ID 2
+Left Front Drive = CAN ID 3
+Left Rear Drive = CAN ID 4
+
+Intake = CAN ID 5
+Feeder = CAN ID 6
+Shooter = CAN IDS 7 & 8
+
+Addressable LEDs = PWM 0
+
+Front Climber = CAN ID 9
+Rear Left Climber = CAN ID 10
+Rear Right Climber = CAN ID 11
+
+PDP = CAN ID 0

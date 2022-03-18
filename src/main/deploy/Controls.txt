@@ -16,15 +16,17 @@ B = Front Climber Up
 Left Joystick (USB Port 2)
 
 Stick Y = Left Side Drive
-Button 3 = Front Climb Down
-Button 4 = Front Climb Up
+Trigger = Front Climb Down
+Top = Front Climb Up
+Button 5 (Right of Top) = Limelight Vision Mode
 
 Right Joystick (USB Port 3)
 
 Stick Y = Right Side Drive
-Trigger = Brake Button
-Button 3 = Rear Climb Down
-Button 4 = Rear Climb Up
+Button 4 (Left of Top) = Brake Button
+Trigger = Rear Climb Down
+Top = Rear Climb Up
+Button 5 (Right of Top) = Limelight Driver Mode
 
 
 Manipulator Stick (USB Port 1)
