@@ -56,10 +56,10 @@ public final class Constants {
 			REAR_CAMERA_CHANNEL = 0,
 			JOYSTICK_BRAKE_BUTTON = 4,
 			VISION_MODE_BUTTON = 5;
-	public static final double FEEDER_SPEED = 0.75,
-			FEEDER_REVERSE_SPEED = -(0.5),
+	public static final double FEEDER_SPEED = 1.0,
+			FEEDER_REVERSE_SPEED = -(0.75),
 			INTAKE_SPEED = 1.0,
-			INTAKE_REVERSE_SPEED = -(0.75),
+			INTAKE_REVERSE_SPEED = -(1.0),
 			SHOOTER_SPEED = 1.0,
 			SHOOTER_REVERSE_SPEED = -(0.5),
 			CLIMBER_SPEED = 0.18,
@@ -82,7 +82,7 @@ public final class Constants {
 
 	// Autonomous
 	public static final double DEFAULT_AUTONOMOUS_DISTANCE = 24.0,
-			DEFAULT_AUTONOMOUS_SPEED = 0.50,
+			DEFAULT_AUTONOMOUS_SPEED = -(0.25),
 			DEFAULT_AUTONOMOUS_HEADING = 0.0,
 			AUTONOMOUS_DISTANCE_ERROR_FACTOR = 6.0,
 			DEFAULT_AUTONOMOUS_TIME = 5.0,
