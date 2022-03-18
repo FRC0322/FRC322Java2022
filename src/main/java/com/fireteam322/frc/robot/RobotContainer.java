@@ -198,7 +198,7 @@ public class RobotContainer {
 		autonomousChooser.setDefaultOption("Do Nothing", new DoNothing());
 		autonomousChooser.addOption("Simple Autonomous", new Simple(m_chassis));
 		autonomousChooser.addOption("Shooter Autonomous",
-				new ShootAndDriveForward(m_chassis, m_intake, m_feeder, m_shooter));
+				new ShootAndDrive(m_chassis, m_intake, m_feeder, m_shooter));
 		SmartDashboard.putData("Autonomous Modes", autonomousChooser);
 	}
 
