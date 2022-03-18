@@ -16,7 +16,7 @@ import com.fireteam322.frc.robot.subsystems.Chassis;
 /**
  * Have the robot drive racing game style.
  */
-public class DriveWithJoysticks extends CommandBase {
+public class ClassicDrive extends CommandBase {
 	private final Chassis m_chassis;
 	private final DoubleSupplier m_left;
 	private final DoubleSupplier m_right;
@@ -29,7 +29,7 @@ public class DriveWithJoysticks extends CommandBase {
 	 * @param right      The control input for the right sight of the drive
 	 * @param drivetrain The drivetrain subsystem to drive
 	 */
-	public DriveWithJoysticks(DoubleSupplier left, DoubleSupplier right, Chassis chassis,
+	public ClassicDrive(DoubleSupplier left, DoubleSupplier right, Chassis chassis,
 			JoystickButton brake) {
 		m_chassis = chassis;
 		m_left = left;
