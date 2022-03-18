@@ -5,54 +5,71 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
-package com.fireteam322.frc.robot.commands;
+package com.fireteam322.frc.robot.commands.Autonomous;
 
+import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import com.fireteam322.frc.robot.Constants;
 import com.fireteam322.frc.robot.subsystems.Chassis;
+import com.fireteam322.frc.robot.subsystems.Feeder;
+import com.fireteam322.frc.robot.subsystems.Intake;
+import com.fireteam322.frc.robot.subsystems.Shooter;
 
-public class BasicAutonomous extends CommandBase {
+public class ShootAndDriveForward extends CommandBase {
 	private final Chassis m_chassis;
-
-	private double heading, distance, startingDistance, errorFactor;
+	private final Intake m_intake;
+	private final Feeder m_feeder;
+	private final Shooter m_shooter;
+	private double startTime;
 
 	/**
-	 * Creates a new BasicAutonomous.
+	 * Creates a new SimpleAutonomous.
 	 */
-	public BasicAutonomous(Chassis chassis) {
+	public ShootAndDriveForward(Chassis chassis, Intake intake, Feeder feeder, Shooter shooter) {
 		m_chassis = chassis;
+		m_intake = intake;
+		m_feeder = feeder;
+		m_shooter = shooter;
 		// Use addRequirements() here to declare subsystem dependencies.
-		addRequirements(m_chassis);
+		addRequirements(m_chassis, m_shooter);
 	}
 
 	// Called when the command is initially scheduled.
 	@Override
 	public void initialize() {
-		startingDistance = Math.min(m_chassis.leftDistanceIn(), m_chassis.rightDistanceIn());
-		heading = Constants.DEFAULT_AUTONOMOUS_HEADING;
-		distance = Constants.DEFAULT_AUTONOMOUS_DISTANCE;
-		errorFactor = Constants.AUTONOMOUS_DISTANCE_ERROR_FACTOR;
+		startTime = Timer.getFPGATimestamp();
 	}
 
 	// Called every time the scheduler runs while the command is scheduled.
 	@Override
 	public void execute() {
-		m_chassis.autoDriveStraight(heading, distance);
+		if (Timer.getFPGATimestamp() < (startTime + 2.5)) {
+			m_feeder.run(Constants.FEEDER_SPEED);
+			m_shooter.run(Constants.SHOOTER_SPEED);
+		} else {
+			m_shooter.stop();
+			m_feeder.stop();
+			m_intake.run(Constants.INTAKE_SPEED);
+			m_chassis.drive(Constants.DEFAULT_AUTONOMOUS_SPEED, Constants.DEFAULT_AUTONOMOUS_HEADING);
+		}
 	}
 
 	// Called once the command ends or is interrupted.
 	@Override
 	public void end(boolean interrupted) {
 		m_chassis.stop();
+		m_intake.stop();
+		m_feeder.stop();
+		m_shooter.stop();
 	}
 
 	// Returns true when the command should end.
 	@Override
 	public boolean isFinished() {
-		if ((startingDistance + distance + errorFactor) > Math.min(Math.abs(m_chassis.leftDistanceIn()),
-				Math.abs(m_chassis.rightDistanceIn())))
+		if (Timer.getFPGATimestamp() < (startTime + Constants.DEFAULT_AUTONOMOUS_TIME)) {
 			return false;
-		else
+		} else {
 			return true;
+		}
 	}
 }

@@ -11,6 +11,7 @@ import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 
 import com.fireteam322.frc.robot.commands.*;
+import com.fireteam322.frc.robot.commands.Autonomous.*;
 import com.fireteam322.frc.robot.subsystems.*;
 import com.fireteam322.frc.robot.utilities.*;
 import com.fireteam322.frc.robot.utilities.Limelight.CameraMode;
@@ -114,15 +115,20 @@ public class RobotContainer {
 					() -> (m_driveStick.getLeftX()), m_chassis, m_brakeButton));
 		}
 
-		// m_feeder.setDefaultCommand(new RunFeeder(m_feeder, () -> -m_manipulatorStick.getLeftY()));
+		// m_feeder.setDefaultCommand(new RunFeeder(m_feeder, () ->
+		// -m_manipulatorStick.getLeftY()));
 
-		// m_intake.setDefaultCommand(new RunIntake(m_intake, () -> -m_manipulatorStick.getRightY()));
+		// m_intake.setDefaultCommand(new RunIntake(m_intake, () ->
+		// -m_manipulatorStick.getRightY()));
 
-		// m_shooter.setDefaultCommand(new RunShooter(m_shooter, () -> (m_manipulatorStick.getRightTriggerAxis()
-		//		- m_manipulatorStick.getLeftTriggerAxis())));
+		// m_shooter.setDefaultCommand(new RunShooter(m_shooter, () ->
+		// (m_manipulatorStick.getRightTriggerAxis()
+		// - m_manipulatorStick.getLeftTriggerAxis())));
 
-		// m_frontClimber.setDefaultCommand(new RunFrontClimber(m_frontClimber, m_manipulatorStick.getLeftX()));
-		// m_rearClimber.setDefaultCommand(new RunRearClimber(m_rearClimber, m_manipulatorStick.getRightX()));
+		// m_frontClimber.setDefaultCommand(new RunFrontClimber(m_frontClimber,
+		// m_manipulatorStick.getLeftX()));
+		// m_rearClimber.setDefaultCommand(new RunRearClimber(m_rearClimber,
+		// m_manipulatorStick.getRightX()));
 
 		m_AddressableLEDs.setDefaultCommand(new AutomaticAddressableLED(m_AddressableLEDs));
 
@@ -157,7 +163,8 @@ public class RobotContainer {
 			m_rearClimbButtonJoystick.whileActiveOnce(new RunRearClimber(m_rearClimber, Constants.CLIMBER_SPEED));
 			m_rearClimbReverseButtonJoystick
 					.whileActiveOnce(new RunRearClimber(m_rearClimber, Constants.CLIMBER_REVERSE_SPEED));
-			m_frontClimbButtonJoystick.whileActiveOnce(new RunFrontClimber(m_frontClimber, Constants.FRONT_CLIMBER_SPEED));
+			m_frontClimbButtonJoystick
+					.whileActiveOnce(new RunFrontClimber(m_frontClimber, Constants.FRONT_CLIMBER_SPEED));
 			m_frontClimbReverseButtonJoystick
 					.whileActiveOnce(new RunFrontClimber(m_frontClimber, Constants.FRONT_CLIMBER_REVERSE_SPEED));
 		} else {
@@ -189,9 +196,9 @@ public class RobotContainer {
 	private void chooserSetup() {
 		// Add commands to Autonomous SendableChooser
 		autonomousChooser.setDefaultOption("Do Nothing", new DoNothing());
-		autonomousChooser.addOption("Basic Autonomous", new BasicAutonomous(m_chassis));
-		autonomousChooser.addOption("Forward Autonomous", new ForwardAutonomous(m_chassis));
-		autonomousChooser.addOption("Simple Autonomous", new SimpleAutonomous(m_chassis));
+		autonomousChooser.addOption("Simple Autonomous", new Simple(m_chassis));
+		autonomousChooser.addOption("Shooter Autonomous",
+				new ShootAndDriveForward(m_chassis, m_intake, m_feeder, m_shooter));
 		SmartDashboard.putData("Autonomous Modes", autonomousChooser);
 	}
 

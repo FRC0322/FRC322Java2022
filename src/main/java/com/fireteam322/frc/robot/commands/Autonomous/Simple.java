@@ -5,14 +5,14 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
-package com.fireteam322.frc.robot.commands;
+package com.fireteam322.frc.robot.commands.Autonomous;
 
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import com.fireteam322.frc.robot.Constants;
 import com.fireteam322.frc.robot.subsystems.Chassis;
 
-public class ForwardAutonomous extends CommandBase {
+public class Simple extends CommandBase {
 	private final Chassis m_chassis;
 
 	private double startTime;
@@ -20,7 +20,7 @@ public class ForwardAutonomous extends CommandBase {
 	/**
 	 * Creates a new SimpleAutonomous.
 	 */
-	public ForwardAutonomous(Chassis chassis) {
+	public Simple(Chassis chassis) {
 		m_chassis = chassis;
 		// Use addRequirements() here to declare subsystem dependencies.
 		addRequirements(m_chassis);
@@ -35,7 +35,7 @@ public class ForwardAutonomous extends CommandBase {
 	// Called every time the scheduler runs while the command is scheduled.
 	@Override
 	public void execute() {
-		m_chassis.drive(-(Constants.DEFAULT_AUTONOMOUS_SPEED), Constants.DEFAULT_AUTONOMOUS_HEADING);
+		m_chassis.drive(Constants.DEFAULT_AUTONOMOUS_SPEED, Constants.DEFAULT_AUTONOMOUS_HEADING);
 	}
 
 	// Called once the command ends or is interrupted.
