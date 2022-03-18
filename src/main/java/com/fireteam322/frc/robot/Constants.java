@@ -45,7 +45,7 @@ public final class Constants {
 	public static final int RIGHT_SHOOTER_MOTOR = 8;
 
 	// RobotContainer.java
-	public static final boolean CLASSIC_MODE = true,
+	public static final boolean CLASSIC_MODE = false,
 			ROBOT_POWER = false;
 	public static final int DRIVE_STICK = 0,
 			MANIPULATOR_STICK = 1,
