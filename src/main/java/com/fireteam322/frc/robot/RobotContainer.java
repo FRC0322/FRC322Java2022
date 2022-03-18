@@ -43,6 +43,9 @@ public class RobotContainer {
 	private final F310Controller m_driveStick = new F310Controller(Constants.DRIVE_STICK);
 	private final F310Controller m_manipulatorStick = new F310Controller(Constants.MANIPULATOR_STICK);
 
+	private final Joystick m_leftDriveJoystick = new Joystick(Constants.LEFT_DRIVE_STICK);
+	private final Joystick m_rightDriveJoystick = new Joystick(Constants.RIGHT_DRIVE_STICK);
+
 	private final JoystickButton m_brakeButton = new JoystickButton(m_driveStick,
 			F310Controller.Button.kBumperLeft.getValue());
 
@@ -58,23 +61,6 @@ public class RobotContainer {
 			F310Controller.Button.kBumperLeft.getValue());
 	private final JoystickButton m_driverModeButton = new JoystickButton(m_driveStick,
 			F310Controller.Button.kBumperRight.getValue());
-
-	private final Joystick m_leftDriveJoystick = new Joystick(Constants.LEFT_DRIVE_STICK);
-	private final Joystick m_rightDriveJoystick = new Joystick(Constants.RIGHT_DRIVE_STICK);
-	private final JoystickButton m_brakeButtonJoystick = new JoystickButton(m_rightDriveJoystick,
-			Joystick.ButtonType.kTrigger.value);
-	private final JoystickButton m_rearClimbButtonJoystick = new JoystickButton(m_rightDriveJoystick,
-			Constants.CLIMB_JOYSTICK_BUTTON);
-	private final JoystickButton m_frontClimbButtonJoystick = new JoystickButton(m_leftDriveJoystick,
-			Constants.CLIMB_JOYSTICK_BUTTON);
-	private final JoystickButton m_rearClimbReverseButtonJoystick = new JoystickButton(m_rightDriveJoystick,
-			Constants.CLIMB_REVERSE_JOYSTICK_BUTTON);
-	private final JoystickButton m_frontClimbReverseButtonJoystick = new JoystickButton(m_leftDriveJoystick,
-			Constants.CLIMB_REVERSE_JOYSTICK_BUTTON);
-	private final JoystickButton m_visionModeButtonJoystick = new JoystickButton(m_rightDriveJoystick,
-			Constants.VISION_MODE_BUTTON);
-	private final JoystickButton m_driverModeButtonJoystick = new JoystickButton(m_leftDriveJoystick,
-			Constants.VISION_MODE_BUTTON);
 
 	private final JoystickButton m_feederButton = new JoystickButton(m_manipulatorStick,
 			F310Controller.Button.kA.getValue());
@@ -96,6 +82,21 @@ public class RobotContainer {
 			F310Controller.Button.kBack.getValue());
 	private final JoystickButton m_LEDDefaultButton = new JoystickButton(m_manipulatorStick,
 			F310Controller.Button.kStickRight.getValue());
+
+	private final JoystickButton m_brakeButtonJoystick = new JoystickButton(m_rightDriveJoystick,
+			Constants.JOYSTICK_BRAKE_BUTTON);
+	private final JoystickButton m_rearClimbButtonJoystick = new JoystickButton(m_rightDriveJoystick,
+			Joystick.ButtonType.kTrigger.value);
+	private final JoystickButton m_frontClimbButtonJoystick = new JoystickButton(m_leftDriveJoystick,
+			Joystick.ButtonType.kTrigger.value);
+	private final JoystickButton m_rearClimbReverseButtonJoystick = new JoystickButton(m_rightDriveJoystick,
+			Joystick.ButtonType.kTop.value);
+	private final JoystickButton m_frontClimbReverseButtonJoystick = new JoystickButton(m_leftDriveJoystick,
+			Joystick.ButtonType.kTop.value);
+	private final JoystickButton m_visionModeButtonJoystick = new JoystickButton(m_leftDriveJoystick,
+			Constants.VISION_MODE_BUTTON);
+	private final JoystickButton m_driverModeButtonJoystick = new JoystickButton(m_rightDriveJoystick,
+			Constants.VISION_MODE_BUTTON);
 
 	/**
 	 * The container for the robot. Contains subsystems, OI devices, and commands.
