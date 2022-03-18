@@ -157,18 +157,18 @@ public class RobotContainer {
 			m_rearClimbButtonJoystick.whileActiveOnce(new RunRearClimber(m_rearClimber, Constants.CLIMBER_SPEED));
 			m_rearClimbReverseButtonJoystick
 					.whileActiveOnce(new RunRearClimber(m_rearClimber, Constants.CLIMBER_REVERSE_SPEED));
-			m_frontClimbButtonJoystick.whileActiveOnce(new RunFrontClimber(m_frontClimber, Constants.CLIMBER_SPEED));
+			m_frontClimbButtonJoystick.whileActiveOnce(new RunFrontClimber(m_frontClimber, Constants.FRONT_CLIMBER_SPEED));
 			m_frontClimbReverseButtonJoystick
-					.whileActiveOnce(new RunFrontClimber(m_frontClimber, Constants.CLIMBER_REVERSE_SPEED));
+					.whileActiveOnce(new RunFrontClimber(m_frontClimber, Constants.FRONT_CLIMBER_REVERSE_SPEED));
 		} else {
 			m_visionModeButton.whileActiveOnce(new LimelightCameraModeControl(m_limelightCamera, CameraMode.kvision));
 			m_driverModeButton.whileActiveOnce(new LimelightCameraModeControl(m_limelightCamera, CameraMode.kdriver));
 			m_rearClimbButton.whileActiveOnce(new RunRearClimber(m_rearClimber, Constants.CLIMBER_SPEED));
 			m_rearClimbReverseButton
 					.whileActiveOnce(new RunRearClimber(m_rearClimber, Constants.CLIMBER_REVERSE_SPEED));
-			m_frontClimbButton.whileActiveOnce(new RunFrontClimber(m_frontClimber, Constants.CLIMBER_SPEED));
+			m_frontClimbButton.whileActiveOnce(new RunFrontClimber(m_frontClimber, Constants.FRONT_CLIMBER_SPEED));
 			m_frontClimbReverseButton
-					.whileActiveOnce(new RunFrontClimber(m_frontClimber, Constants.CLIMBER_REVERSE_SPEED));
+					.whileActiveOnce(new RunFrontClimber(m_frontClimber, Constants.FRONT_CLIMBER_REVERSE_SPEED));
 		}
 		m_feederButton.whileActiveOnce(new RunFeeder(m_feeder, () -> Constants.FEEDER_SPEED), true);
 		m_feederReverseButton.whileActiveOnce(new RunFeeder(m_feeder, () -> Constants.FEEDER_REVERSE_SPEED), true);
