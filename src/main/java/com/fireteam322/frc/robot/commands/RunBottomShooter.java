@@ -16,7 +16,6 @@ public class RunBottomShooter extends CommandBase {
     addRequirements(m_shooter);
   }
 
-
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {}
