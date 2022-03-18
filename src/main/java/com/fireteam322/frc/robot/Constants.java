@@ -62,8 +62,10 @@ public final class Constants {
 			INTAKE_REVERSE_SPEED = -(1.0),
 			SHOOTER_SPEED = 1.0,
 			SHOOTER_REVERSE_SPEED = -(0.5),
-			CLIMBER_SPEED = 0.18,
-			CLIMBER_REVERSE_SPEED = -(0.18);
+			CLIMBER_SPEED = 0.25,
+			CLIMBER_REVERSE_SPEED = -(0.25),
+			FRONT_CLIMBER_SPEED = 0.6,
+			FRONT_CLIMBER_REVERSE_SPEED = -(0.25);
 
 	// FrontClimber.java
 	public static final int FRONT_CLIMBER_MOTOR = 9;
@@ -82,7 +84,7 @@ public final class Constants {
 
 	// Autonomous
 	public static final double DEFAULT_AUTONOMOUS_DISTANCE = 24.0,
-			DEFAULT_AUTONOMOUS_SPEED = -(0.25),
+			DEFAULT_AUTONOMOUS_SPEED = -(0.5),
 			DEFAULT_AUTONOMOUS_HEADING = 0.0,
 			AUTONOMOUS_DISTANCE_ERROR_FACTOR = 6.0,
 			DEFAULT_AUTONOMOUS_TIME = 5.0,
