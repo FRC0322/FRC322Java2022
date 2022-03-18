@@ -6,6 +6,7 @@ package com.fireteam322.frc.robot;
 
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 
@@ -113,15 +114,15 @@ public class RobotContainer {
 					() -> (m_driveStick.getLeftX()), m_chassis, m_brakeButton));
 		}
 
-		m_feeder.setDefaultCommand(new RunFeeder(m_feeder, () -> -m_manipulatorStick.getLeftY()));
+		// m_feeder.setDefaultCommand(new RunFeeder(m_feeder, () -> -m_manipulatorStick.getLeftY()));
 
-		m_intake.setDefaultCommand(new RunIntake(m_intake, () -> -m_manipulatorStick.getRightY()));
+		// m_intake.setDefaultCommand(new RunIntake(m_intake, () -> -m_manipulatorStick.getRightY()));
 
-		m_shooter.setDefaultCommand(new RunShooter(m_shooter, () -> (m_manipulatorStick.getRightTriggerAxis()
-				- m_manipulatorStick.getLeftTriggerAxis())));
+		// m_shooter.setDefaultCommand(new RunShooter(m_shooter, () -> (m_manipulatorStick.getRightTriggerAxis()
+		//		- m_manipulatorStick.getLeftTriggerAxis())));
 
-		m_frontClimber.setDefaultCommand(new RunFrontClimber(m_frontClimber, m_manipulatorStick.getLeftX()));
-		m_rearClimber.setDefaultCommand(new RunRearClimber(m_rearClimber, m_manipulatorStick.getRightX()));
+		// m_frontClimber.setDefaultCommand(new RunFrontClimber(m_frontClimber, m_manipulatorStick.getLeftX()));
+		// m_rearClimber.setDefaultCommand(new RunRearClimber(m_rearClimber, m_manipulatorStick.getRightX()));
 
 		m_AddressableLEDs.setDefaultCommand(new AutomaticAddressableLED(m_AddressableLEDs));
 
@@ -191,6 +192,7 @@ public class RobotContainer {
 		autonomousChooser.addOption("Basic Autonomous", new BasicAutonomous(m_chassis));
 		autonomousChooser.addOption("Forward Autonomous", new ForwardAutonomous(m_chassis));
 		autonomousChooser.addOption("Simple Autonomous", new SimpleAutonomous(m_chassis));
+		SmartDashboard.putData("Autonomous Modes", autonomousChooser);
 	}
 
 	/**
