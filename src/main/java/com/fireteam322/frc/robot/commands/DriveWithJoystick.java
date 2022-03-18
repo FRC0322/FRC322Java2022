@@ -18,22 +18,20 @@ import com.fireteam322.frc.robot.subsystems.Chassis;
  */
 public class DriveWithJoystick extends CommandBase {
 	private final Chassis m_chassis;
-	private final DoubleSupplier m_left;
-	private final DoubleSupplier m_right;
+	private final DoubleSupplier m_speed, m_rotation;
 	private final JoystickButton m_brakeButton;
 
 	/**
 	 * Creates a new DriveWithJoystick command.
 	 *
-	 * @param left       The control input for the left side of the drive
-	 * @param right      The control input for the right sight of the drive
+	 * @param speed       The control input for the left side of the drive
 	 * @param drivetrain The drivetrain subsystem to drive
 	 */
-	public DriveWithJoystick(DoubleSupplier left, DoubleSupplier right, Chassis chassis,
+	public DriveWithJoystick(DoubleSupplier speed, DoubleSupplier rotation, Chassis chassis,
 			JoystickButton brake) {
 		m_chassis = chassis;
-		m_left = left;
-		m_right = right;
+		m_rotation = rotation;
+		m_speed = speed;
 		m_brakeButton = brake;
 		addRequirements(m_chassis);
 	}
@@ -46,7 +44,7 @@ public class DriveWithJoystick extends CommandBase {
 	// Called repeatedly when this Command is scheduled to run
 	@Override
 	public void execute() {
-		m_chassis.drive(m_left.getAsDouble(), m_right.getAsDouble());
+		m_chassis.drive(m_speed.getAsDouble(), m_rotation.getAsDouble());
 		if (m_brakeButton.get())
 			m_chassis.brake(true);
 		else
