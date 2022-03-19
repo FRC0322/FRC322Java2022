@@ -34,6 +34,9 @@ public class RobotContainer {
 	private final Boolean m_lowGoal = false;
 	private final Boolean m_highGoal = true;
 
+	private boolean m_shooterMode;
+	private double m_shooterSpeed = Constants.LOW_SHOOTER_SPEED;
+
 	private final AddressableLEDs m_AddressableLEDs = new AddressableLEDs(Constants.ADDRESSABLE_LED_PORT,
 			Constants.ADDRESSABLE_LED_LENGTH);
 	private final Chassis m_chassis = new Chassis();
@@ -149,6 +152,9 @@ public class RobotContainer {
 		// Setup the ShooterModeChooser
 		shooterModeSetup();
 
+		// Set the Shooter speed
+		setShooterSpeed();
+
 		// Configure the button bindings
 		configureButtonBindings();
 	}
@@ -183,14 +189,15 @@ public class RobotContainer {
 			m_frontClimbReverseButton
 					.whileActiveOnce(new RunFrontClimber(m_frontClimber, Constants.FRONT_CLIMBER_REVERSE_SPEED));
 		}
-		m_feederButton.whileActiveOnce(new RunFeeder(m_feeder, () -> Constants.FEEDER_SPEED), true);
-		m_feederReverseButton.whileActiveOnce(new RunFeeder(m_feeder, () -> Constants.FEEDER_REVERSE_SPEED), true);
-
-		m_shooterButton.whileActiveOnce(new RunShooter(m_shooter, () -> Constants.LOW_SHOOTER_SPEED), true);
-		m_shooterReverseButton.whileActiveOnce(new RunShooter(m_shooter, () -> Constants.SHOOTER_REVERSE_SPEED), true);
 
 		m_intakeButton.whileActiveOnce(new RunIntake(m_intake, () -> Constants.INTAKE_SPEED));
 		m_intakeReverseButton.whileActiveOnce(new RunIntake(m_intake, () -> Constants.INTAKE_REVERSE_SPEED));
+
+		m_feederButton.whileActiveOnce(new RunFeeder(m_feeder, () -> Constants.FEEDER_SPEED), true);
+		m_feederReverseButton.whileActiveOnce(new RunFeeder(m_feeder, () -> Constants.FEEDER_REVERSE_SPEED), true);
+
+		m_shooterButton.whileActiveOnce(new RunShooter(m_shooter, () -> m_shooterSpeed), true);
+		m_shooterReverseButton.whileActiveOnce(new RunShooter(m_shooter, () -> Constants.SHOOTER_REVERSE_SPEED), true);
 
 		m_LEDDefaultButton.whileActiveOnce(new LimelightLightModeControl(m_limelightCamera, LightMode.kpipeLine));
 		m_LEDOffButton.whileActiveOnce(new LimelightLightModeControl(m_limelightCamera, LightMode.kforceOff));
@@ -213,6 +220,7 @@ public class RobotContainer {
 	private void shooterModeSetup() {
 		shooterModeChooser.setDefaultOption("Low Goal", m_lowGoal);
 		shooterModeChooser.addOption("High Goal", m_highGoal);
+		SmartDashboard.putData("Shooter Mode", shooterModeChooser);
 	}
 
 	/**
@@ -223,5 +231,18 @@ public class RobotContainer {
 	public Command getAutonomousCommand() {
 		m_autoCommand = autonomousChooser.getSelected();
 		return m_autoCommand;
+	}
+
+	public boolean getShooterMode() {
+		m_shooterMode = shooterModeChooser.getSelected().booleanValue();
+		return m_shooterMode;
+	}
+
+	public void setShooterSpeed() {
+		if (getShooterMode()) {
+			m_shooterSpeed = Constants.LOW_SHOOTER_SPEED;
+		} else {
+			m_shooterSpeed = Constants.HIGH_SHOOTER_SPEED;
+		}
 	}
 }
