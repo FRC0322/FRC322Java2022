@@ -46,7 +46,8 @@ public final class Constants {
 
 	// RobotContainer.java
 	public static final boolean CLASSIC_MODE = false,
-			ROBOT_POWER = false;
+			ROBOT_POWER = false,
+			DEBUG_MODE = false;
 	public static final int DRIVE_STICK = 0,
 			MANIPULATOR_STICK = 1,
 			DEBUGGER_STICK = 2,
@@ -60,8 +61,8 @@ public final class Constants {
 			FEEDER_REVERSE_SPEED = -(0.75),
 			INTAKE_SPEED = 1.0,
 			INTAKE_REVERSE_SPEED = -(1.0),
-			AUTON_SHOOTER_SPEED = 0.45,
-			SHOOTER_SPEED = 0.45,
+			LOW_SHOOTER_SPEED = 0.45,
+			HIGH_SHOOTER_SPEED = 0.90,
 			SHOOTER_REVERSE_SPEED = -(0.5),
 			CLIMBER_SPEED = 0.25,
 			CLIMBER_REVERSE_SPEED = -(0.25),
@@ -88,6 +89,6 @@ public final class Constants {
 			DEFAULT_AUTONOMOUS_SPEED = -(0.5),
 			DEFAULT_AUTONOMOUS_HEADING = 0.0,
 			AUTONOMOUS_DISTANCE_ERROR_FACTOR = 6.0,
-			DEFAULT_AUTONOMOUS_TIME = 5.0,
+			DEFAULT_AUTONOMOUS_TIME = 10.0,
 			SHOOTER_AUTONOMOUS_DRIVETIME = 3.0;
 }
