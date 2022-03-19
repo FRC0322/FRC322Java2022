@@ -30,13 +30,11 @@ public class RobotContainer {
 	private static Command m_autoCommand;
 	private static SendableChooser<Command> autonomousChooser = new SendableChooser<>();
 	private static SendableChooser<Boolean> shooterModeChooser = new SendableChooser<>();
+	private static boolean m_shooterMode;
+	private static double m_shooterSpeed = Constants.LOW_SHOOTER_SPEED;
 
-	private final Boolean m_lowGoal = false;
-	private final Boolean m_highGoal = true;
-
-	private boolean m_shooterMode;
-	private double m_shooterSpeed = Constants.LOW_SHOOTER_SPEED;
-
+	private final Boolean m_lowGoal = new Boolean(false);
+	private final Boolean m_highGoal = new Boolean(true);
 	private final AddressableLEDs m_AddressableLEDs = new AddressableLEDs(Constants.ADDRESSABLE_LED_PORT,
 			Constants.ADDRESSABLE_LED_LENGTH);
 	private final Chassis m_chassis = new Chassis();
@@ -196,6 +194,7 @@ public class RobotContainer {
 		m_feederButton.whileActiveOnce(new RunFeeder(m_feeder, () -> Constants.FEEDER_SPEED), true);
 		m_feederReverseButton.whileActiveOnce(new RunFeeder(m_feeder, () -> Constants.FEEDER_REVERSE_SPEED), true);
 
+		//m_shooterButton.whileActiveOnce(new RunShooter(m_shooter, () -> Constants.LOW_SHOOTER_SPEED), true);
 		m_shooterButton.whileActiveOnce(new RunShooter(m_shooter, () -> m_shooterSpeed), true);
 		m_shooterReverseButton.whileActiveOnce(new RunShooter(m_shooter, () -> Constants.SHOOTER_REVERSE_SPEED), true);
 
@@ -233,16 +232,16 @@ public class RobotContainer {
 		return m_autoCommand;
 	}
 
-	public boolean getShooterMode() {
+	private boolean getShooterMode() {
 		m_shooterMode = shooterModeChooser.getSelected().booleanValue();
 		return m_shooterMode;
 	}
 
 	public void setShooterSpeed() {
 		if (getShooterMode()) {
-			m_shooterSpeed = Constants.LOW_SHOOTER_SPEED;
-		} else {
 			m_shooterSpeed = Constants.HIGH_SHOOTER_SPEED;
+		} else {
+			m_shooterSpeed = Constants.LOW_SHOOTER_SPEED;
 		}
 	}
 }
