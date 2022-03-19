@@ -15,7 +15,7 @@ import com.fireteam322.frc.robot.subsystems.Feeder;
 import com.fireteam322.frc.robot.subsystems.Intake;
 import com.fireteam322.frc.robot.subsystems.Shooter;
 
-public class ShootAndDrive extends CommandBase {
+public class ShootHighAndDrive extends CommandBase {
 	private final Chassis m_chassis;
 	private final Intake m_intake;
 	private final Feeder m_feeder;
@@ -25,7 +25,7 @@ public class ShootAndDrive extends CommandBase {
 	/**
 	 * Creates a new SimpleAutonomous.
 	 */
-	public ShootAndDrive(Chassis chassis, Intake intake, Feeder feeder, Shooter shooter) {
+	public ShootHighAndDrive(Chassis chassis, Intake intake, Feeder feeder, Shooter shooter) {
 		m_chassis = chassis;
 		m_intake = intake;
 		m_feeder = feeder;
@@ -44,7 +44,7 @@ public class ShootAndDrive extends CommandBase {
 	@Override
 	public void execute() {
 		if (Timer.getFPGATimestamp() < (startTime + 1.0)) {
-			m_shooter.run(Constants.AUTON_SHOOTER_SPEED);
+			m_shooter.run(Constants.HIGH_SHOOTER_SPEED);
 		} else if ((Timer.getFPGATimestamp() >= (startTime + 1.0)) && Timer.getFPGATimestamp() <= (startTime + 1.5)) {
 			m_feeder.run(Constants.FEEDER_SPEED);
 		} else {

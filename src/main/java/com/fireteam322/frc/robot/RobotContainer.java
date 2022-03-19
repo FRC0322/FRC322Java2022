@@ -29,6 +29,10 @@ public class RobotContainer {
 	// The robot's subsystems and commands are defined here...
 	private static Command m_autoCommand;
 	private static SendableChooser<Command> autonomousChooser = new SendableChooser<>();
+	private static SendableChooser<Boolean> shooterModeChooser = new SendableChooser<>();
+
+	private final Boolean m_lowGoal = false;
+	private final Boolean m_highGoal = true;
 
 	private final AddressableLEDs m_AddressableLEDs = new AddressableLEDs(Constants.ADDRESSABLE_LED_PORT,
 			Constants.ADDRESSABLE_LED_LENGTH);
@@ -115,20 +119,19 @@ public class RobotContainer {
 					() -> (m_driveStick.getLeftX()), m_chassis, m_brakeButton));
 		}
 
-		// m_feeder.setDefaultCommand(new RunFeeder(m_feeder, () ->
-		// -m_manipulatorStick.getLeftY()));
+		if (Constants.DEBUG_MODE) {
+			m_feeder.setDefaultCommand(new RunFeeder(m_feeder, () -> -m_manipulatorStick.getLeftY()));
 
-		// m_intake.setDefaultCommand(new RunIntake(m_intake, () ->
-		// -m_manipulatorStick.getRightY()));
+			m_intake.setDefaultCommand(new RunIntake(m_intake, () -> -m_manipulatorStick.getRightY()));
 
-		// m_shooter.setDefaultCommand(new RunShooter(m_shooter, () ->
-		// (m_manipulatorStick.getRightTriggerAxis()
-		// - m_manipulatorStick.getLeftTriggerAxis())));
+			m_shooter.setDefaultCommand(new RunShooter(m_shooter, () ->
+				(m_manipulatorStick.getRightTriggerAxis() - m_manipulatorStick.getLeftTriggerAxis())));
 
-		// m_frontClimber.setDefaultCommand(new RunFrontClimber(m_frontClimber,
-		// m_manipulatorStick.getLeftX()));
-		// m_rearClimber.setDefaultCommand(new RunRearClimber(m_rearClimber,
-		// m_manipulatorStick.getRightX()));
+			m_frontClimber.setDefaultCommand(new RunFrontClimber(m_frontClimber,
+				m_manipulatorStick.getLeftX()));
+			m_rearClimber.setDefaultCommand(new RunRearClimber(m_rearClimber,
+				m_manipulatorStick.getRightX()));
+		}
 
 		m_AddressableLEDs.setDefaultCommand(new AutomaticAddressableLED(m_AddressableLEDs));
 
@@ -142,6 +145,9 @@ public class RobotContainer {
 
 		// Setup the SendableChooser
 		chooserSetup();
+
+		// Setup the ShooterModeChooser
+		shooterModeSetup();
 
 		// Configure the button bindings
 		configureButtonBindings();
@@ -180,7 +186,7 @@ public class RobotContainer {
 		m_feederButton.whileActiveOnce(new RunFeeder(m_feeder, () -> Constants.FEEDER_SPEED), true);
 		m_feederReverseButton.whileActiveOnce(new RunFeeder(m_feeder, () -> Constants.FEEDER_REVERSE_SPEED), true);
 
-		m_shooterButton.whileActiveOnce(new RunShooter(m_shooter, () -> Constants.SHOOTER_SPEED), true);
+		m_shooterButton.whileActiveOnce(new RunShooter(m_shooter, () -> Constants.LOW_SHOOTER_SPEED), true);
 		m_shooterReverseButton.whileActiveOnce(new RunShooter(m_shooter, () -> Constants.SHOOTER_REVERSE_SPEED), true);
 
 		m_intakeButton.whileActiveOnce(new RunIntake(m_intake, () -> Constants.INTAKE_SPEED));
@@ -197,9 +203,16 @@ public class RobotContainer {
 		// Add commands to Autonomous SendableChooser
 		autonomousChooser.setDefaultOption("Do Nothing", new DoNothing());
 		autonomousChooser.addOption("Simple Autonomous", new Simple(m_chassis));
-		autonomousChooser.addOption("Shooter Autonomous",
-				new ShootAndDrive(m_chassis, m_intake, m_feeder, m_shooter));
+		autonomousChooser.addOption("Low Shooter Autonomous",
+				new ShootLowAndDrive(m_chassis, m_intake, m_feeder, m_shooter));
+		autonomousChooser.addOption("High Shooter Autonomous",
+				new ShootHighAndDrive(m_chassis, m_intake, m_feeder, m_shooter));
 		SmartDashboard.putData("Autonomous Modes", autonomousChooser);
+	}
+
+	private void shooterModeSetup() {
+		shooterModeChooser.setDefaultOption("Low Goal", m_lowGoal);
+		shooterModeChooser.addOption("High Goal", m_highGoal);
 	}
 
 	/**
