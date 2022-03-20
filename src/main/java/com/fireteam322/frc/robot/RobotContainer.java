@@ -194,7 +194,6 @@ public class RobotContainer {
 		m_feederButton.whileActiveOnce(new RunFeeder(m_feeder, () -> Constants.FEEDER_SPEED), true);
 		m_feederReverseButton.whileActiveOnce(new RunFeeder(m_feeder, () -> Constants.FEEDER_REVERSE_SPEED), true);
 
-		//m_shooterButton.whileActiveOnce(new RunShooter(m_shooter, () -> Constants.LOW_SHOOTER_SPEED), true);
 		m_shooterButton.whileActiveOnce(new RunShooter(m_shooter, () -> m_shooterSpeed), true);
 		m_shooterReverseButton.whileActiveOnce(new RunShooter(m_shooter, () -> Constants.SHOOTER_REVERSE_SPEED), true);
 
