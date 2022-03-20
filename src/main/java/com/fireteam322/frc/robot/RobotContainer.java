@@ -33,8 +33,8 @@ public class RobotContainer {
 	private static boolean m_shooterMode;
 	private static double m_shooterSpeed = Constants.LOW_SHOOTER_SPEED;
 
-	private final Boolean m_lowGoal = new Boolean(false);
-	private final Boolean m_highGoal = new Boolean(true);
+	private final Boolean m_lowGoal = Boolean.FALSE;
+	private final Boolean m_highGoal = Boolean.TRUE;
 	private final AddressableLEDs m_AddressableLEDs = new AddressableLEDs(Constants.ADDRESSABLE_LED_PORT,
 			Constants.ADDRESSABLE_LED_LENGTH);
 	private final Chassis m_chassis = new Chassis();
@@ -215,6 +215,9 @@ public class RobotContainer {
 		SmartDashboard.putData("Autonomous Modes", autonomousChooser);
 	}
 
+	/**
+	 * Use this to setup the shooter mode.
+	 */
 	private void shooterModeSetup() {
 		shooterModeChooser.setDefaultOption("Low Goal", m_lowGoal);
 		shooterModeChooser.addOption("High Goal", m_highGoal);
@@ -231,11 +234,19 @@ public class RobotContainer {
 		return m_autoCommand;
 	}
 
+	/**
+	 * Use this to pass the shooter mode elsewhere in this class.
+	 *
+	 * @return a boolean describing the shooter mode (false = low goal and true = high goal)
+	 */
 	private boolean getShooterMode() {
 		m_shooterMode = shooterModeChooser.getSelected().booleanValue();
 		return m_shooterMode;
 	}
 
+	/**
+	 * Use this to set the shooter speed.
+	 */
 	public void setShooterSpeed() {
 		if (getShooterMode()) {
 			m_shooterSpeed = Constants.HIGH_SHOOTER_SPEED;
