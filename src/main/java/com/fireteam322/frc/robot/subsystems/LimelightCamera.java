@@ -47,16 +47,52 @@ public class LimelightCamera extends SubsystemBase {
 		return m_limelight;
 	}
 
+	/**
+	 * This method exists to pass whether the limelight has any valid targets.
+	 * @return Returns true if there is a valid target.
+	 */
+	public boolean getTV() {
+		return m_limelight.isTarget();
+	}
+
+	/**
+	 * This method exists to pass the Horizontal Offset From Crosshair To Target.
+	 * @return Returns the Horizontal Offset From Crosshair To Target in degrees.
+	 */
 	public double getTX() {
 		return m_limelight.getTX();
 	}
 
+	/**
+	 * This method exists to pass the Vertical Offset From Crosshair To Target.
+	 * @return Returns the Vertical Offset From Crosshair To Target in degrees.
+	 */
 	public double getTY() {
 		return m_limelight.getTY();
 	}
 
+	/**
+	 * This method exists to pass the Target Area.
+	 * @return Returns the Target Area in percent.
+	 */
 	public double getTA() {
 		return m_limelight.getTA();
+	}
+
+	/**
+	 * This method exists to pass the Skew/Rotation.
+	 * @return Returns the Skew/Rotation in degrees.
+	 */
+	public double getTS() {
+		return m_limelight.getTS();
+	}
+
+	/**
+	 * This method exists to pass the pipeline latency.
+	 * @return Returns the pipeline latency in milliseconds.
+	 */
+	public double getTL() {
+		return m_limelight.getTL();
 	}
 
 	/**
@@ -67,8 +103,7 @@ public class LimelightCamera extends SubsystemBase {
 		return m_limelightFeed;
 	}
 
+	// This method is called once per scheduler run
 	@Override
-	public void periodic() {
-		// This method will be called once per scheduler run
-	}
+	public void periodic() {}
 }

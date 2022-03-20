@@ -304,8 +304,7 @@ public class Limelight {
 	/**
 	 * Sets LED mode of Limelight.
 	 *
-	 * @param mode
-	 *            Light mode for Limelight.
+	 * @param mode Light mode for Limelight.
 	 */
 	public void setLedMode(LightMode mode) {
 		getValue("ledMode").setNumber(mode.ordinal());
@@ -314,8 +313,7 @@ public class Limelight {
 	/**
 	 * Sets camera mode for Limelight.
 	 *
-	 * @param mode
-	 *            Camera mode for Limelight.
+	 * @param mode Camera mode for Limelight.
 	 */
 	public void setCameraMode(CameraMode mode) {
 		getValue("camMode").setNumber(mode.ordinal());
@@ -324,8 +322,7 @@ public class Limelight {
 	/**
 	 * Sets pipeline number (0-9 value).
 	 *
-	 * @param number
-	 *            Pipeline number (0-9).
+	 * @param number Pipeline number (0-9).
 	 */
 	public void setPipeline(int number) {
 		getValue("pipeline").setNumber(number);
