@@ -7,68 +7,69 @@
 
 package com.fireteam322.frc.robot.subsystems;
 
-import edu.wpi.first.cscore.HttpCamera;
-import edu.wpi.first.cscore.HttpCamera.HttpCameraKind;
-import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import com.fireteam322.frc.robot.utilities.Limelight;
 import com.fireteam322.frc.robot.utilities.Limelight.CameraMode;
 import com.fireteam322.frc.robot.utilities.Limelight.LightMode;
+import edu.wpi.first.cscore.HttpCamera;
+import edu.wpi.first.cscore.HttpCamera.HttpCameraKind;
+import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 public class LimelightCamera extends SubsystemBase {
-	/**
-	 * The Limelight subsystem incorporates the Limelight 2+ camera.
-	 */
-	private final Limelight m_limelight;
-	private final HttpCamera m_limelightFeed;
+  /** The Limelight subsystem incorporates the Limelight 2+ camera. */
+  private final Limelight m_limelight;
 
-	/**
-	 * Creates a new Limelight.
-	 */
-	public LimelightCamera() {
-		super();
-		m_limelight = new Limelight();
+  private final HttpCamera m_limelightFeed;
 
-		// Set the camera to Driver Mode
-		m_limelight.setCameraMode(CameraMode.kdriver);
+  /** Creates a new Limelight. */
+  public LimelightCamera() {
+    super();
+    m_limelight = new Limelight();
 
-		// Turn off the lights
-		m_limelight.setLedMode(LightMode.kforceOff);
+    // Set the camera to Driver Mode
+    m_limelight.setCameraMode(CameraMode.kdriver);
 
-		// Activate an HttpCamera for the Limelight
-		m_limelightFeed = new HttpCamera("Limelight Camera", "http://10.3.22.11:5800/stream.mjpg", HttpCameraKind.kMJPGStreamer);
-		//CameraServer.getInstance().startAutomaticCapture(m_limelightFeed);
-	}
+    // Turn off the lights
+    m_limelight.setLedMode(LightMode.kforceOff);
 
-	/**
-	 * This method exists to pass the Limelight object to other classes.
-	 * @return Returns a Limelight object.
-	 */
-	public Limelight getLimelight() {
-		return m_limelight;
-	}
+    // Activate an HttpCamera for the Limelight
+    m_limelightFeed =
+        new HttpCamera(
+            "Limelight Camera", "http://10.3.22.11:5800/stream.mjpg", HttpCameraKind.kMJPGStreamer);
+    // CameraServer.getInstance().startAutomaticCapture(m_limelightFeed);
+  }
 
-	public double getTX() {
-		return m_limelight.getTX();
-	}
+  /**
+   * This method exists to pass the Limelight object to other classes.
+   *
+   * @return Returns a Limelight object.
+   */
+  public Limelight getLimelight() {
+    return m_limelight;
+  }
 
-	public double getTY() {
-		return m_limelight.getTY();
-	}
+  public double getTX() {
+    return m_limelight.getTX();
+  }
 
-	public double getTA() {
-		return m_limelight.getTA();
-	}
+  public double getTY() {
+    return m_limelight.getTY();
+  }
 
-	/**
-	 * This method returns the Limelight HttpCamera feed.
-	 * @return Returns an HttpCamera feed.
-	 */
-	public HttpCamera getLimelightFeed() {
-		return m_limelightFeed;
-	}
+  public double getTA() {
+    return m_limelight.getTA();
+  }
 
-	@Override
-	public void periodic() {
-		// This method will be called once per scheduler run
-	}
+  /**
+   * This method returns the Limelight HttpCamera feed.
+   *
+   * @return Returns an HttpCamera feed.
+   */
+  public HttpCamera getLimelightFeed() {
+    return m_limelightFeed;
+  }
+
+  @Override
+  public void periodic() {
+    // This method will be called once per scheduler run
+  }
 }
