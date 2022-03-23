@@ -198,11 +198,9 @@ public class RobotContainer {
 
     m_shooterReverseButton.whileActiveOnce(
         new RunShooter(m_shooter, () -> Constants.SHOOTER_REVERSE_SPEED), true);
-
     m_intakeButton.whileActiveOnce(new RunIntake(m_intake, () -> Constants.INTAKE_SPEED));
     m_intakeReverseButton.whileActiveOnce(
         new RunIntake(m_intake, () -> Constants.INTAKE_REVERSE_SPEED));
-
     m_LEDDefaultButton.whileActiveOnce(
         new LimelightLightModeControl(m_limelightCamera, LightMode.kpipeLine));
     m_LEDOffButton.whileActiveOnce(
