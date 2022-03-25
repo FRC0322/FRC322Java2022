@@ -22,6 +22,9 @@ public class RobotTestContainerImpl implements RobotContrainerInterface {
 
   private JoystickButton feeder = new JoystickButton(m_leftJoystick, 2);
 
+  // Subsystems
+  private MotorBuilder runBottomeShooter = new MotorBuilder();
+
   private void setupDrive() {
     DriveWithJoysticks drive =
         new DriveWithJoysticks(
@@ -53,6 +56,12 @@ public class RobotTestContainerImpl implements RobotContrainerInterface {
   public void configureButtonBindings() {
     // TODO Auto-generated method stub
 
+    runBottomeShooter
+        .setDeviceID(Constants.LEFT_SHOOTER_MOTOR)
+        .setSpeed(Constants.SHOOTER_SPEED)
+        .setJoyStick(shooter)
+        .setButtonActionAndSpeed(MotorBuilder.ACTION_HELD, m_leftJoystick.getRawAxis(3) * -1)
+        .setButtonActionAndSpeed(MotorBuilder.ACTION_RELEASED, m_leftJoystick.getRawAxis(3) * -1);
   }
 
   @Override
