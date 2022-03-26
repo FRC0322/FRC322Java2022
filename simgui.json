@@ -1,11 +1,46 @@
 {
+  "HALProvider": {
+    "Other Devices": {
+      "Talon SRX[7]": {
+        "header": {
+          "open": true
+        }
+      }
+    }
+  },
   "NTProvider": {
     "types": {
       "/FMSInfo": "FMSInfo",
       "/LiveWindow/Chassis": "Subsystem",
+      "/LiveWindow/Talon": "Subsystem",
       "/LiveWindow/Ungrouped/DifferentialDrive[1]": "DifferentialDrive",
       "/LiveWindow/Ungrouped/Scheduler": "Scheduler",
+      "/LiveWindow/Ungrouped/Talon SRX [7]": "Motor Controller",
       "/LiveWindow/Ungrouped/navX-Sensor[4]": "Gyro"
+    },
+    "windows": {
+      "/FMSInfo": {
+        "window": {
+          "visible": true
+        }
+      }
+    }
+  },
+  "NetworkTables": {
+    "LiveWindow": {
+      "Talon": {
+        "open": true
+      },
+      "Ungrouped": {
+        "DifferentialDrive[1]": {
+          "open": true
+        },
+        "Talon SRX [7]": {
+          "open": true
+        },
+        "open": true
+      },
+      "open": true
     }
   }
 }
