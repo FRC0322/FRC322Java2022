@@ -39,8 +39,8 @@ public class RobotTestContainerImpl implements RobotContrainerInterface {
   private void setupDrive() {
     DriveWithJoysticks drive =
         new DriveWithJoysticks(
-            () -> m_leftJoystick.getY() * m_leftJoystick.getRawAxis(3) * -1,
-            () -> m_rightJoystick.getY() * m_leftJoystick.getRawAxis(3) * -1,
+            () -> m_leftJoystick.getY() * ((m_leftJoystick.getRawAxis(3) * -1) + 1.0) / 2.0,
+            () -> m_rightJoystick.getY() * ((m_leftJoystick.getRawAxis(3) * -1) + 1.0) / 2.0,
             m_chassis,
             brake);
     m_chassis.setDefaultCommand(drive);
@@ -50,7 +50,7 @@ public class RobotTestContainerImpl implements RobotContrainerInterface {
     m_visionThread =
         new Thread(
             () -> {
-              CameraServer.startAutomaticCapture(3);
+              CameraServer.startAutomaticCapture(0);
               m_cCamera.setResolution(640, 480);
               CvSink cvsink = CameraServer.getVideo();
               CvSource outputStream = CameraServer.putVideo("Rectangle", 640, 480);
