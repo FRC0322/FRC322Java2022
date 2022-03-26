@@ -112,8 +112,8 @@ public class RobotContainer {
 		// Assign default commands
 
 		if (Constants.CLASSIC_MODE) {
-			m_chassis.setDefaultCommand(new ClassicDrive(() -> (m_leftDriveJoystick.getY()),
-					() -> m_rightDriveJoystick.getY(), m_chassis, m_brakeButtonJoystick));
+			m_chassis.setDefaultCommand(new DriveWithJoysticks(() -> (m_leftDriveJoystick.getY() * ((m_rightDriveJoystick.getRawAxis(3) * -1 + 1.0) / 2.0)),
+					() -> (m_rightDriveJoystick.getY() * ((m_rightDriveJoystick.getRawAxis(3) -1 + 1.0) / 2.0)), m_chassis, m_brakeButtonJoystick));
 		} else {
 			m_chassis.setDefaultCommand(new DriveWithJoystick(
 					() -> (m_driveStick.getRightTriggerAxis() - m_driveStick.getLeftTriggerAxis()),
