@@ -113,9 +113,9 @@ public class RobotContainer {
 
 		if (Constants.CLASSIC_MODE) {
 			m_chassis.setDefaultCommand(new DriveWithJoysticks(() -> (m_leftDriveJoystick.getY() * ((m_rightDriveJoystick.getRawAxis(3) * -1 + 1.0) / 2.0)),
-					() -> (m_rightDriveJoystick.getY() * ((m_rightDriveJoystick.getRawAxis(3) -1 + 1.0) / 2.0)), m_chassis, m_brakeButtonJoystick));
+					() -> (m_rightDriveJoystick.getY() * ((m_rightDriveJoystick.getRawAxis(3) * -1 + 1.0) / 2.0)), m_chassis, m_brakeButtonJoystick));
 		} else {
-			m_chassis.setDefaultCommand(new DriveWithJoystick(
+			m_chassis.setDefaultCommand(new DriveWithGamepad(
 					() -> (m_driveStick.getRightTriggerAxis() - m_driveStick.getLeftTriggerAxis()),
 					() -> (m_driveStick.getLeftX()), m_chassis, m_brakeButton));
 		}
