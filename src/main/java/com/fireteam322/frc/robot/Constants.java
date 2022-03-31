@@ -54,7 +54,7 @@ public final class Constants {
 			LEFT_DRIVE_STICK = 3,
 			RIGHT_DRIVE_STICK = 4,
 			CAMERASERVER_FEEDS = 2,
-			REAR_CAMERA_CHANNEL = 0,
+			FRONT_CAMERA_CHANNEL = 0,
 			JOYSTICK_BRAKE_BUTTON = 4,
 			VISION_MODE_BUTTON = 5;
 	public static final double FEEDER_SPEED = 1.0,
@@ -76,10 +76,10 @@ public final class Constants {
 	public static final int REAR_LEFT_CLIMBER_MOTOR = 10,
 			REAR_RIGHT_CLIMBER_MOTOR = 11;
 
-	// RunFrontCamera.java & RunRearCamera.java
-	public static final int VIDEO_WIDTH = 320,
-			VIDEO_HEIGHT = 180,
-			VIDEO_FPS = 15;
+	// RunFrontCamera.java
+	public static final int VIDEO_WIDTH = 640,
+			VIDEO_HEIGHT = 480,
+			VIDEO_FPS = 30;
 
 	// Robot Power
 	public static final int PDP_CHANNEL = 0;

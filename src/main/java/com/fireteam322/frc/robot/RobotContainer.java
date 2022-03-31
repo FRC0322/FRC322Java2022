@@ -14,8 +14,6 @@ import com.fireteam322.frc.robot.commands.*;
 import com.fireteam322.frc.robot.commands.Autonomous.*;
 import com.fireteam322.frc.robot.subsystems.*;
 import com.fireteam322.frc.robot.utilities.*;
-import com.fireteam322.frc.robot.utilities.Limelight.CameraMode;
-import com.fireteam322.frc.robot.utilities.Limelight.LightMode;
 
 /**
  * This class is where the bulk of the robot should be declared.
@@ -38,8 +36,7 @@ public class RobotContainer {
 	private final AddressableLEDs m_AddressableLEDs = new AddressableLEDs(Constants.ADDRESSABLE_LED_PORT,
 			Constants.ADDRESSABLE_LED_LENGTH);
 	private final Chassis m_chassis = new Chassis();
-	private final LimelightCamera m_limelightCamera = new LimelightCamera();
-	private final RobotCamera m_rearCamera = new RobotCamera("Rear Camera", Constants.REAR_CAMERA_CHANNEL);
+	private final RobotCamera m_frontCamera = new RobotCamera("Front Camera", Constants.FRONT_CAMERA_CHANNEL);
 	private final RobotPower m_robotPower = new RobotPower();
 	private final RearClimber m_rearClimber = new RearClimber();
 	private final FrontClimber m_frontClimber = new FrontClimber();
@@ -64,10 +61,6 @@ public class RobotContainer {
 			F310Controller.Button.kA.getValue());
 	private final JoystickButton m_frontClimbReverseButton = new JoystickButton(m_driveStick,
 			F310Controller.Button.kB.getValue());
-	private final JoystickButton m_visionModeButton = new JoystickButton(m_driveStick,
-			F310Controller.Button.kBumperLeft.getValue());
-	private final JoystickButton m_driverModeButton = new JoystickButton(m_driveStick,
-			F310Controller.Button.kBumperRight.getValue());
 
 	private final JoystickButton m_feederButton = new JoystickButton(m_manipulatorStick,
 			F310Controller.Button.kA.getValue());
@@ -81,14 +74,6 @@ public class RobotContainer {
 			F310Controller.Button.kBumperLeft.getValue());
 	private final JoystickButton m_intakeButton = new JoystickButton(m_manipulatorStick,
 			F310Controller.Button.kBumperRight.getValue());
-	private final JoystickButton m_LEDOnButton = new JoystickButton(m_manipulatorStick,
-			F310Controller.Button.kStart.getValue());
-	private final JoystickButton m_LEDBlinkButton = new JoystickButton(m_manipulatorStick,
-			F310Controller.Button.kStickLeft.getValue());
-	private final JoystickButton m_LEDOffButton = new JoystickButton(m_manipulatorStick,
-			F310Controller.Button.kBack.getValue());
-	private final JoystickButton m_LEDDefaultButton = new JoystickButton(m_manipulatorStick,
-			F310Controller.Button.kStickRight.getValue());
 
 	private final JoystickButton m_brakeButtonJoystick = new JoystickButton(m_rightDriveJoystick,
 			Constants.JOYSTICK_BRAKE_BUTTON);
@@ -100,10 +85,6 @@ public class RobotContainer {
 			Joystick.ButtonType.kTop.value);
 	private final JoystickButton m_frontClimbReverseButtonJoystick = new JoystickButton(m_leftDriveJoystick,
 			Joystick.ButtonType.kTop.value);
-	private final JoystickButton m_visionModeButtonJoystick = new JoystickButton(m_leftDriveJoystick,
-			Constants.VISION_MODE_BUTTON);
-	private final JoystickButton m_driverModeButtonJoystick = new JoystickButton(m_rightDriveJoystick,
-			Constants.VISION_MODE_BUTTON);
 
 	/**
 	 * The container for the robot. Contains subsystems, OI devices, and commands.
@@ -136,10 +117,7 @@ public class RobotContainer {
 
 		m_AddressableLEDs.setDefaultCommand(new AutomaticAddressableLED(m_AddressableLEDs));
 
-		m_limelightCamera
-				.setDefaultCommand(new LimelightLightModeControl(m_limelightCamera, Limelight.LightMode.kforceOff));
-
-		m_rearCamera.setDefaultCommand(new RunRearCamera(m_rearCamera));
+		m_frontCamera.setDefaultCommand(new RunFrontCamera(m_frontCamera));
 
 		if (Constants.ROBOT_POWER)
 			m_robotPower.setDefaultCommand(new StartRobotPower(m_robotPower));
@@ -166,10 +144,6 @@ public class RobotContainer {
 	 */
 	private void configureButtonBindings() {
 		if (Constants.CLASSIC_MODE) {
-			m_visionModeButtonJoystick
-					.whileActiveOnce(new LimelightCameraModeControl(m_limelightCamera, CameraMode.kvision));
-			m_driverModeButtonJoystick
-					.whileActiveOnce(new LimelightCameraModeControl(m_limelightCamera, CameraMode.kdriver));
 			m_rearClimbButtonJoystick.whileActiveOnce(new RunRearClimber(m_rearClimber, Constants.CLIMBER_SPEED));
 			m_rearClimbReverseButtonJoystick
 					.whileActiveOnce(new RunRearClimber(m_rearClimber, Constants.CLIMBER_REVERSE_SPEED));
@@ -178,8 +152,6 @@ public class RobotContainer {
 			m_frontClimbReverseButtonJoystick
 					.whileActiveOnce(new RunFrontClimber(m_frontClimber, Constants.FRONT_CLIMBER_REVERSE_SPEED));
 		} else {
-			m_visionModeButton.whileActiveOnce(new LimelightCameraModeControl(m_limelightCamera, CameraMode.kvision));
-			m_driverModeButton.whileActiveOnce(new LimelightCameraModeControl(m_limelightCamera, CameraMode.kdriver));
 			m_rearClimbButton.whileActiveOnce(new RunRearClimber(m_rearClimber, Constants.CLIMBER_SPEED));
 			m_rearClimbReverseButton
 					.whileActiveOnce(new RunRearClimber(m_rearClimber, Constants.CLIMBER_REVERSE_SPEED));
@@ -196,11 +168,6 @@ public class RobotContainer {
 
 		m_shooterButton.whileActiveOnce(new RunShooter(m_shooter, () -> m_shooterSpeed), true);
 		m_shooterReverseButton.whileActiveOnce(new RunShooter(m_shooter, () -> Constants.SHOOTER_REVERSE_SPEED), true);
-
-		m_LEDDefaultButton.whileActiveOnce(new LimelightLightModeControl(m_limelightCamera, LightMode.kpipeLine));
-		m_LEDOffButton.whileActiveOnce(new LimelightLightModeControl(m_limelightCamera, LightMode.kforceOff));
-		m_LEDBlinkButton.whileActiveOnce(new LimelightLightModeControl(m_limelightCamera, LightMode.kforceBlink));
-		m_LEDOnButton.whileActiveOnce(new LimelightLightModeControl(m_limelightCamera, LightMode.kforceOn));
 	}
 
 	// Use this to setup the SendableChooser.
