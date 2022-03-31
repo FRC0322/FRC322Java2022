@@ -6,18 +6,18 @@ package com.fireteam322.frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
 
-import com.fireteam322.frc.robot.subsystems.FrontClimber;
+import com.fireteam322.frc.robot.subsystems.IntakeLifter;
 
-public class RunFrontClimber extends CommandBase {
-  private final FrontClimber m_climber;
+public class RunIntakeLifter extends CommandBase {
+  private final IntakeLifter m_lifter;
   private final double m_speed;
 
-  /** Creates a new RunFrontClimber. */
-  public RunFrontClimber(FrontClimber climber, double speed) {
-    m_climber = climber;
+  /** Creates a new RunIntakeLifter. */
+  public RunIntakeLifter(IntakeLifter lifter, double speed) {
+    m_lifter = lifter;
     m_speed = speed;
     // Use addRequirements() here to declare subsystem dependencies.
-    addRequirements(m_climber);
+    addRequirements(m_lifter);
   }
 
   // Called when the command is initially scheduled.
@@ -28,13 +28,13 @@ public class RunFrontClimber extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    m_climber.run(m_speed);
+    m_lifter.run(m_speed);
   }
 
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
-    m_climber.stop();
+    m_lifter.stop();
   }
 
   // Returns true when the command should end.

@@ -11,26 +11,26 @@ import com.ctre.phoenix.motorcontrol.can.WPI_TalonFX;
 
 import com.fireteam322.frc.robot.Constants;
 
-public class FrontClimber extends SubsystemBase {
-  private final WPI_TalonFX m_climberMotor = new WPI_TalonFX(Constants.FRONT_CLIMBER_MOTOR);
+public class IntakeLifter extends SubsystemBase {
+  private final WPI_TalonFX m_intakeLiftMotor = new WPI_TalonFX(Constants.INTAKE_LIFT_MOTOR);
 
   /** Creates a new FrontClimber. */
-  public FrontClimber() {
+  public IntakeLifter() {
     super();
     // Set the inversion on the climber motor. (Until we know if this is necessary,
     // it'll remain commented out.)
-    // m_climberMotor.setInverted(true);
+    // m_intakeLiftMotor.setInverted(true);
 
     // Set the climber motor to Brake so the robot doesn't fall when unpowered.
-    m_climberMotor.setNeutralMode(NeutralMode.Brake);
+    m_intakeLiftMotor.setNeutralMode(NeutralMode.Brake);
   }
 
   public void stop() {
-    m_climberMotor.stopMotor();
+    m_intakeLiftMotor.stopMotor();
   }
 
   public void run(double speed) {
-    m_climberMotor.set(speed);
+    m_intakeLiftMotor.set(speed);
   }
 
   @Override

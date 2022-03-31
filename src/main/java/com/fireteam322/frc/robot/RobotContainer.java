@@ -39,7 +39,7 @@ public class RobotContainer {
 	private final RobotCamera m_frontCamera = new RobotCamera("Front Camera", Constants.FRONT_CAMERA_CHANNEL);
 	private final RobotPower m_robotPower = new RobotPower();
 	private final RearClimber m_rearClimber = new RearClimber();
-	private final FrontClimber m_frontClimber = new FrontClimber();
+	private final IntakeLifter m_lifter = new IntakeLifter();
 	private final Feeder m_feeder = new Feeder();
 	private final Intake m_intake = new Intake();
 	private final Shooter m_shooter = new Shooter();
@@ -57,9 +57,9 @@ public class RobotContainer {
 			F310Controller.Button.kX.getValue());
 	private final JoystickButton m_rearClimbReverseButton = new JoystickButton(m_driveStick,
 			F310Controller.Button.kY.getValue());
-	private final JoystickButton m_frontClimbButton = new JoystickButton(m_driveStick,
+	private final JoystickButton m_intakeLiftButton = new JoystickButton(m_driveStick,
 			F310Controller.Button.kA.getValue());
-	private final JoystickButton m_frontClimbReverseButton = new JoystickButton(m_driveStick,
+	private final JoystickButton m_intakeLowerButton = new JoystickButton(m_driveStick,
 			F310Controller.Button.kB.getValue());
 
 	private final JoystickButton m_feederButton = new JoystickButton(m_manipulatorStick,
@@ -79,11 +79,9 @@ public class RobotContainer {
 			Constants.JOYSTICK_BRAKE_BUTTON);
 	private final JoystickButton m_rearClimbButtonJoystick = new JoystickButton(m_rightDriveJoystick,
 			Joystick.ButtonType.kTrigger.value);
-	private final JoystickButton m_frontClimbButtonJoystick = new JoystickButton(m_leftDriveJoystick,
+	private final JoystickButton m_intakeLiftButtonJoystick = new JoystickButton(m_leftDriveJoystick,
 			Joystick.ButtonType.kTrigger.value);
-	private final JoystickButton m_rearClimbReverseButtonJoystick = new JoystickButton(m_rightDriveJoystick,
-			Joystick.ButtonType.kTop.value);
-	private final JoystickButton m_frontClimbReverseButtonJoystick = new JoystickButton(m_leftDriveJoystick,
+	private final JoystickButton m_intakeLowerButtonJoystick = new JoystickButton(m_rightDriveJoystick,
 			Joystick.ButtonType.kTop.value);
 
 	/**
@@ -109,7 +107,7 @@ public class RobotContainer {
 			m_shooter.setDefaultCommand(new RunShooter(m_shooter, () ->
 				(m_manipulatorStick.getRightTriggerAxis() - m_manipulatorStick.getLeftTriggerAxis())));
 
-			m_frontClimber.setDefaultCommand(new RunFrontClimber(m_frontClimber,
+			m_lifter.setDefaultCommand(new RunIntakeLifter(m_lifter,
 				m_manipulatorStick.getLeftX()));
 			m_rearClimber.setDefaultCommand(new RunRearClimber(m_rearClimber,
 				m_manipulatorStick.getRightX()));
@@ -145,19 +143,19 @@ public class RobotContainer {
 	private void configureButtonBindings() {
 		if (Constants.CLASSIC_MODE) {
 			m_rearClimbButtonJoystick.whileActiveOnce(new RunRearClimber(m_rearClimber, Constants.CLIMBER_SPEED));
-			m_rearClimbReverseButtonJoystick
+			m_intakeLowerButtonJoystick
 					.whileActiveOnce(new RunRearClimber(m_rearClimber, Constants.CLIMBER_REVERSE_SPEED));
-			m_frontClimbButtonJoystick
-					.whileActiveOnce(new RunFrontClimber(m_frontClimber, Constants.FRONT_CLIMBER_SPEED));
-			m_frontClimbReverseButtonJoystick
-					.whileActiveOnce(new RunFrontClimber(m_frontClimber, Constants.FRONT_CLIMBER_REVERSE_SPEED));
+			m_intakeLiftButtonJoystick
+					.whileActiveOnce(new RunIntakeLifter(m_lifter, Constants.INTAKE_LIFT_SPEED));
+			m_intakeLowerButtonJoystick
+					.whileActiveOnce(new RunIntakeLifter(m_lifter, Constants.INTAKE_LOWER_SPEED));
 		} else {
 			m_rearClimbButton.whileActiveOnce(new RunRearClimber(m_rearClimber, Constants.CLIMBER_SPEED));
 			m_rearClimbReverseButton
 					.whileActiveOnce(new RunRearClimber(m_rearClimber, Constants.CLIMBER_REVERSE_SPEED));
-			m_frontClimbButton.whileActiveOnce(new RunFrontClimber(m_frontClimber, Constants.FRONT_CLIMBER_SPEED));
-			m_frontClimbReverseButton
-					.whileActiveOnce(new RunFrontClimber(m_frontClimber, Constants.FRONT_CLIMBER_REVERSE_SPEED));
+			m_intakeLiftButton.whileActiveOnce(new RunIntakeLifter(m_lifter, Constants.INTAKE_LIFT_SPEED));
+			m_intakeLowerButton
+					.whileActiveOnce(new RunIntakeLifter(m_lifter, Constants.INTAKE_LOWER_SPEED));
 		}
 
 		m_intakeButton.whileActiveOnce(new RunIntake(m_intake, () -> Constants.INTAKE_SPEED));

@@ -44,8 +44,11 @@ public final class Constants {
 	public static final int LEFT_SHOOTER_MOTOR = 7;
 	public static final int RIGHT_SHOOTER_MOTOR = 8;
 
+	// IntakeLifter.java
+	public static final int INTAKE_LIFT_MOTOR = 9;
+
 	// RobotContainer.java
-	public static final boolean CLASSIC_MODE = false,
+	public static final boolean CLASSIC_MODE = true,
 			ROBOT_POWER = false,
 			DEBUG_MODE = false;
 	public static final int DRIVE_STICK = 0,
@@ -59,18 +62,15 @@ public final class Constants {
 			VISION_MODE_BUTTON = 5;
 	public static final double FEEDER_SPEED = 1.0,
 			FEEDER_REVERSE_SPEED = -(0.75),
+			INTAKE_LIFT_SPEED = 0.25,
+			INTAKE_LOWER_SPEED = -(0.25),
 			INTAKE_SPEED = 1.0,
 			INTAKE_REVERSE_SPEED = -(1.0),
 			LOW_SHOOTER_SPEED = 0.45,
 			HIGH_SHOOTER_SPEED = 0.90,
 			SHOOTER_REVERSE_SPEED = -(0.5),
-			CLIMBER_SPEED = 0.25,
-			CLIMBER_REVERSE_SPEED = -(0.25),
-			FRONT_CLIMBER_SPEED = 0.6,
-			FRONT_CLIMBER_REVERSE_SPEED = -(0.25);
-
-	// FrontClimber.java
-	public static final int FRONT_CLIMBER_MOTOR = 9;
+			CLIMBER_SPEED = 0.6,
+			CLIMBER_REVERSE_SPEED = -(0.4);
 
 	// RearClimber.java
 	public static final int REAR_LEFT_CLIMBER_MOTOR = 10,
